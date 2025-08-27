@@ -4,7 +4,7 @@
 *.ipr
 *.iws
 
-# Configuration locale PhpStorm
+# Local configuration PhpStorm
 .idea/workspace.xml
 .idea/tasks.xml
 .idea/usage.statistics.xml
@@ -23,7 +23,7 @@
 .idea/mongoSettings.xml
 .idea/jsLibraryMappings.xml
 
-# Fichiers sensibles PhpStorm
+# Sensitive files PhpStorm
 .idea/httpRequests/
 .idea/caches/
 
@@ -32,39 +32,31 @@
 logs/
 log/
 
-# Dépendances PHP
+# PHP dependencies
 /vendor/
 composer.lock
 composer.phar
 
-# Dépendances Node.js (si utilisées)
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-package-lock.json
-yarn.lock
-
-# Fichiers de configuration d'environnement
+# Environment configuration files
 .env
 .env.local
 .env.*.local
 .env.production
 .env.development
 
-# Cache et fichiers temporaires
+# Cache and temporary files
 /cache/
 /tmp/
 /temp/
 *.tmp
 *.cache
 
-# Uploads et fichiers utilisateur
+# Uploads and user files
 /uploads/
 /storage/
 /public/uploads/
 
-# Fichiers système
+# System files
 .DS_Store
 .DS_Store?
 ._*
@@ -74,7 +66,7 @@ ehthumbs.db
 Thumbs.db
 desktop.ini
 
-# Build et distribution
+# Build & distribution
 /build/
 /dist/
 /public/build/
@@ -90,14 +82,14 @@ phpunit.xml
 *.backup
 *~
 
-# Documentation générée
+# Generated documentation
 /docs/build/
 /doc/build/
 
-# Fichiers de base de données
+# Database files
 *.sqlite
 *.db
 
-# Configuration serveur web
+# Web server configuration
 .htaccess.local
 web.config.local
