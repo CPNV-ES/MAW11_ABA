@@ -1,0 +1,103 @@
+# PhpStorm
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Configuration locale PhpStorm
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/usage.statistics.xml
+.idea/dictionaries
+.idea/shelf/
+.idea/aws.xml
+.idea/contentModel.xml
+.idea/dataSources.ids
+.idea/dataSources.xml
+.idea/dataSources.local.xml
+.idea/sqlDataSources.xml
+.idea/dynamic.xml
+.idea/uiDesigner.xml
+.idea/gradle.xml
+.idea/libraries
+.idea/mongoSettings.xml
+.idea/jsLibraryMappings.xml
+
+# Fichiers sensibles PhpStorm
+.idea/httpRequests/
+.idea/caches/
+
+# Logs
+*.log
+logs/
+log/
+
+# Dépendances PHP
+/vendor/
+composer.lock
+composer.phar
+
+# Dépendances Node.js (si utilisées)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Fichiers de configuration d'environnement
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+
+# Cache et fichiers temporaires
+/cache/
+/tmp/
+/temp/
+*.tmp
+*.cache
+
+# Uploads et fichiers utilisateur
+/uploads/
+/storage/
+/public/uploads/
+
+# Fichiers système
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Build et distribution
+/build/
+/dist/
+/public/build/
+
+# Tests
+/coverage/
+.phpunit.result.cache
+phpunit.xml
+.phpunit.cache/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Documentation générée
+/docs/build/
+/doc/build/
+
+# Fichiers de base de données
+*.sqlite
+*.db
+
+# Configuration serveur web
+.htaccess.local
+web.config.local
