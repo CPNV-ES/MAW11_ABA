@@ -24,10 +24,10 @@ composer install
 
 ## Collaborate
 
-- [How to use your workflow](https://nvie.com/posts/a-successful-git-branching-model/)
+- [Our workflow](https://nvie.com/posts/a-successful-git-branching-model/)
  
 ## License
-
+[MIT License](LICENSE)
 ## Contact
 
 bryan.zweiacker@eduvaud.ch / aurelien.robert@eduvaud.ch / amin.deabreu@eduvaud.ch
