@@ -1,0 +1,22 @@
+<?php
+require_once "../src/renderer.php";
+Class Dispatcher{
+
+    function __construct(){}
+
+    function dispatch(){
+        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $uri = rtrim($uri, '/') ?: '/';
+
+        switch ($uri) {
+            case '/':
+                $renderer = new Renderer();
+                $renderer->render("home.php");
+                break;
+
+            default:
+                header('HTTP/1.0 404 Not Found');
+                break;
+        }
+    }
+}
