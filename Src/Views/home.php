@@ -7,5 +7,6 @@
 <body>
 <h1>page d'acceuil teste</h1>
 <p>teste</p>
+    <?= $fullPath ?>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <?php
-require_once "../src/renderer.php";
+require_once SRC_DIR . "renderer.php";
 Class Dispatcher{
 
     function __construct(){}

@@ -1,8 +1,7 @@
 <?php
 class Renderer {
     public function render(string $viewPath): void {
-        $fullPath = __DIR__ . '/../src/views/' . $viewPath;
-
+        $fullPath = SRC_DIR . 'views/' . $viewPath;
         require $fullPath;
     }
 }
