@@ -14,6 +14,11 @@ Class Dispatcher{
                 $renderer->render("home.php");
                 break;
 
+            case '/exercises/new':
+                $renderer = new Renderer();
+                $renderer->render("newExercise.php");
+                break;
+
             default:
                 header('HTTP/1.0 404 Not Found');
                 break;
