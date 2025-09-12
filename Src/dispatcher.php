@@ -19,11 +19,11 @@ Class Dispatcher{
                 $renderer->render("newExercise.php");
                 break;
 
-            case 'exercises/answering':
-                $renderer = new Renderer();
-                $renderer->render("answerExercise.php");
+            case '/exercises/answering':
+                require_once SRC_DIR . 'Controllers/navigate.php';
+                $navigate = new Navigate();
+                $navigate->showExercises();
                 break;
-
             default:
                 header('HTTP/1.0 404 Not Found');
                 break;
