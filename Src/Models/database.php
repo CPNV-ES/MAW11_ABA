@@ -1,7 +1,7 @@
 <?php
 class Database {
     private $host = 'localhost';
-    private $db   = 'Maw1.1Looper';
+    private $db   = 'Maw.1.1Looper';
     private $user = 'root';
     private $pass = 'Pa$$w0rd';
     private $charset = 'utf8mb4';
