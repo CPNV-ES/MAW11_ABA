@@ -23,7 +23,7 @@
   <body>
     <h1>New Exercise</h1>
 
-<form action="/exercises" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="AUxomCBAS/RkPl7DyMEqERDWGUD2ErnmgaZU6YzlI7IKynUiLtx4+EAi1HFZ3hMR1Q7PtjPp/6TyWH32tyIvMg==" />
+<form action="#" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="AUxomCBAS/RkPl7DyMEqERDWGUD2ErnmgaZU6YzlI7IKynUiLtx4+EAi1HFZ3hMR1Q7PtjPp/6TyWH32tyIvMg==" />
 
   <div class="field">
     <label for="exercise_title">Title</label>
