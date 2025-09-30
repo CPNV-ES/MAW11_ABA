@@ -1,14 +1,21 @@
 <?php
 class Database {
-    private $host = 'localhost';
-    private $db   = 'Maw.1.1Looper';
-    private $user = 'root';
-    private $pass = 'Pa$$w0rd';
-    private $charset = 'utf8mb4';
+    private $host;
+    private $db;
+    private $user;
+    private $pass ;
+    private $charset;
 
     private $pdo;
 
     public function __construct() {
+        $config = require __DIR__ . '/config.php';
+
+        $this->host = $config['host'];
+        $this->db = $config['db'];
+        $this->user = $config['user'];
+        $this->pass = $config['pass'];
+        $this->charset = $config['charset'];
         $dsn = "mysql:host={$this->host};dbname={$this->db};charset={$this->charset}";
         try {
             $this->pdo = new PDO($dsn, $this->user, $this->pass, [
