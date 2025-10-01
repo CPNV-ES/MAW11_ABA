@@ -24,6 +24,12 @@ Class Dispatcher{
                 $navigate = new Navigate();
                 $navigate->showExercises();
                 break;
+
+            case '/exercises':
+                $renderer = new Renderer();
+                $renderer->render("manageExercise.php");
+                break;
+
             default:
                 header('HTTP/1.0 404 Not Found');
                 break;
