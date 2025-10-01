@@ -1,5 +1,5 @@
 <?php
-require_once 'Database.php';
+require_once 'database.php';
 
 class Exercise {
     private $pdo;
@@ -14,3 +14,4 @@ class Exercise {
         return $stmt->fetchAll();
     }
 }
+

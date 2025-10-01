@@ -1,7 +1,7 @@
 <?php
 require_once SRC_DIR . 'Models/database.php';
 require_once SRC_DIR . 'Models/exercises.php';
-require_once SRC_DIR . 'Renderer.php';
+require_once SRC_DIR . 'renderer.php';
 class Navigate
 {
     private $db;
