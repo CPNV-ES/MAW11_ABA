@@ -26,8 +26,9 @@ Class Dispatcher{
                 break;
 
             case '/exercises':
-                $renderer = new Renderer();
-                $renderer->render("manageExercise.php");
+                require_once SRC_DIR . 'Controllers/navigate.php';
+                $navigate = new Navigate();
+                $navigate->showTakeExercises();
                 break;
 
             default:

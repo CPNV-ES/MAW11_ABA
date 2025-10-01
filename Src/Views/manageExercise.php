@@ -28,6 +28,19 @@
                     <th></th>
                 </tr>
                 </thead>
+
+                <tbody>
+                <!-- ** refaire au propre ** -->
+                <?php foreach ($exercises as $exercise) { ?>
+                    <tr>
+                        <td><?= $exercise["title"]?></td>
+                        <td>
+                            <a title="Manage fields" href="#"><img src="/img/edit.png" class="fa fa-trash"></a>
+                            <a data-confirm="Are you sure?" title="delete" rel="nofollow" data-method="delete" href="#"><img src="/img/trash.png" class="fa fa-trash"></a>
+                        </td>
+                    </tr>
+                <?php } ?>
+                </tbody>
             </table>
         </section>
 
@@ -40,6 +53,19 @@
                     <th></th>
                 </tr>
                 </thead>
+
+                <tbody>
+                <!-- ** refaire au propre ** -->
+                <?php foreach ($exercises as $exercise) { ?>
+                    <tr>
+                        <td><?= $exercise["title"]?></td>
+                        <td>
+                            <a title="Show results" href="#"><img class="fa fa-edit" src="/img/stats.png"></a>
+                            <a title="Close" rel="nofollow" data-method="put" href="#"><img src="/img/close.png" class="fa fa-trash"></a>
+                        </td>
+                    </tr>
+                <?php } ?>
+                </tbody>
             </table>
         </section>
 
@@ -53,11 +79,21 @@
                 </tr>
                 </thead>
 
+                <tbody>
+                <!-- ** refaire au propre ** -->
+                <?php foreach ($exercises as $exercise) { ?>
+                    <tr>
+                        <td><?= $exercise["title"]?></td>
+                        <td>
+                            <a title="Manage fields" href="#"><img src="/img/stats.png" class="fa fa-edit"></a>
+                            <a data-confirm="Are you sure?" title="delete" rel="nofollow" data-method="delete" href="#"><img src="/img/trash.png" class="fa fa-trash"></a>
+                        </td>
+                    </tr>
+                <?php } ?>
+                </tbody>
             </table>
         </section>
     </div>
-
     </body>
     </html>
-
 </main>

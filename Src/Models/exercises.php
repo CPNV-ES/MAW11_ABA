@@ -10,7 +10,7 @@ class Exercise {
     }
 
     public function getExercises() {
-        $stmt = $this->pdo->query("SELECT id, titre FROM `exercise`");
+        $stmt = $this->pdo->query("SELECT id, title FROM `exercise`");
         return $stmt->fetchAll();
     }
 }

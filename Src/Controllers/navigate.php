@@ -20,4 +20,9 @@ class Navigate
         $exercises = $this->exerciseModel->getExercises();
         $this->renderer->render("showExercises.php", ['exercises' => $exercises]);
     }
+    public function showTakeExercises()
+    {
+        $exercises = $this->exerciseModel->getExercises();
+        $this->renderer->render("manageExercise.php", ['exercises' => $exercises]);
+    }
 }

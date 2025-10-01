@@ -20,9 +20,16 @@
 
     <body>
     <ul class="ansering-list">
-       
+        <!-- ** refaire au propre ** -->
+        <?php foreach ($exercises as $exercise) { ?>
+            <li class="row">
+                <div class="column card">
+                    <div class="title"><?= $exercise["title"]?></div>
+                    <a class="button" href="#">Take it</a>
+                </div>
+            </li>
+        <?php } ?>
     </ul>
-
     </body>
     </html>
 
