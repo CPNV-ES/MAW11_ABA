@@ -93,3 +93,6 @@ phpunit.xml
 # Web server configuration
 .htaccess.local
 web.config.local
+
+#Ignore config file for database
+config.php
