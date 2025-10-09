@@ -7,6 +7,7 @@ Class Dispatcher{
     function dispatch(){
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $uri = rtrim($uri, '/') ?: '/';
+        $method = $_SERVER['REQUEST_METHOD'];
 
         switch ($uri) {
             case '/':
@@ -15,8 +16,19 @@ Class Dispatcher{
                 break;
 
             case '/exercises/new':
-                $renderer = new Renderer();
-                $renderer->render("newExercise.php");
+                require_once SRC_DIR . 'Controllers/exercise.php';
+                $exerciseController = new ExerciseController();
+
+                if ($method == 'GET') {
+                    $renderer = new Renderer(); //repeat fix ?
+                    $renderer->render("newExercise.php");
+                }
+                if ($method == 'POST') {
+                    $result = $exerciseController->createExercise();
+
+                    $renderer = new Renderer();
+                    $renderer->render($result['view'], ['data' => $result['data']]);
+                }
                 break;
 
             case '/exercises/answering':
@@ -30,7 +42,10 @@ Class Dispatcher{
                 $navigate = new Navigate();
                 $navigate->showTakeExercises();
                 break;
-
+            case '/exercises/newExerciseFields':
+                $renderer = new Renderer(); //repeat fix ?
+                $renderer->render("newExerciseFields.php");
+                break;
             default:
                 header('HTTP/1.0 404 Not Found');
                 break;

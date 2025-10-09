@@ -211,6 +211,36 @@ button::-moz-focus-inner,
     border-style: none;
     padding: 0;
 }
+.imgcommentary{
+    width: 20px;
+}
+.help-block{
+    color: #a94442;
+    font-size: 0.9em;
+    margin-top: 5px;
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 15px
+}
+.form-group.has-error input {
+    border-color: #a94442; /* rouge */
+}
+
+.form-group.has-error label {
+    color: #a94442; /* label rouge aussi */
+}
+.form-group input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-group.has-error input {
+    border-width: 2px;
+}
+
 
 /**
  * Restore the focus styles unset by the previous rule.

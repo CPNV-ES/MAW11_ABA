@@ -23,13 +23,16 @@
   <body>
     <h1>New Exercise</h1>
 
-<form action="#" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="AUxomCBAS/RkPl7DyMEqERDWGUD2ErnmgaZU6YzlI7IKynUiLtx4+EAi1HFZ3hMR1Q7PtjPp/6TyWH32tyIvMg==" />
+<form action="/exercises/new" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="AUxomCBAS/RkPl7DyMEqERDWGUD2ErnmgaZU6YzlI7IKynUiLtx4+EAi1HFZ3hMR1Q7PtjPp/6TyWH32tyIvMg==" />
 
-  <div class="field">
-    <label for="exercise_title">Title</label>
-    <input type="text" name="exercise[title]" id="exercise_title" />
-  </div>
+    <div class="form-group <?= isset($data['title_error']) ? 'has-error' : '' ?>">
+        <label for="exercise_title">Title</label>
+        <input type="text" name="exercise_title" id="exercise_title" value="<?= htmlspecialchars($_POST['exercise_title'] ?? '') ?>" />
 
+        <?php if (!empty($data['title_error'])): ?>
+            <span class="help-block"><?= htmlspecialchars($data['title_error']) ?></span>
+        <?php endif; ?>
+    </div>
   <div class="actions">
     <input type="submit" name="commit" value="Create Exercise" data-disable-with="Create Exercise" />
   </div>
