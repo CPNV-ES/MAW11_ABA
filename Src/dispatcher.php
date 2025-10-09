@@ -24,7 +24,7 @@ Class Dispatcher{
                     $renderer->render("newExercise.php");
                 }
                 if ($method == 'POST') {
-                    $result = $exerciseController->createExercise();
+                    $result = $exerciseController->create();
 
                     $renderer = new Renderer();
                     $renderer->render($result['view'], ['data' => $result['data']]);

@@ -13,7 +13,7 @@ class Exercise {
         $stmt = $this->pdo->query("SELECT exercise_id, title FROM `exercises`");
         return $stmt->fetchAll();
     }
-    public function createExercise($title)
+    public function create($title)
     {
         $stmt = $this->pdo->prepare("INSERT INTO `exercises` (title) VALUES (:title)");
         $stmt->execute(['title' => $title]);

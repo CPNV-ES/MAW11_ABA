@@ -15,7 +15,7 @@ class ExerciseController
         $this->renderer = new Renderer();
     }
 
-    public function createExercise()
+    public function create()
     {
         $title = $_POST['exercise_title'] ?? null;
         $data = [];
@@ -25,7 +25,7 @@ class ExerciseController
         }
 
         if (empty($data)) {
-            $id = $this->exerciseModel->createExercise($title);
+            $id = $this->exerciseModel->create($title);
 
             $data = $this->exerciseModel->getTitleExercise($id);
 
