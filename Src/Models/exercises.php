@@ -9,7 +9,7 @@ class Exercise {
         $this->pdo = $db->getConnection();
     }
 
-    public function getExercises() {
+    public function getAll() {
         $stmt = $this->pdo->query("SELECT exercise_id, title FROM `exercises`");
         return $stmt->fetchAll();
     }
@@ -20,7 +20,7 @@ class Exercise {
         $lastid = $this->pdo->lastInsertId();
         return $lastid;
     }
-    public function getTitleExercise($id) {
+    public function getTitle($id) {
         $stmt = $this->pdo->prepare("SELECT title FROM `exercises` WHERE exercise_id = :id");
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);

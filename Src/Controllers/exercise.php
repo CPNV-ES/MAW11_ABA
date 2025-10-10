@@ -27,7 +27,7 @@ class ExerciseController
         if (empty($data)) {
             $id = $this->exerciseModel->create($title);
 
-            $data = $this->exerciseModel->getTitleExercise($id);
+            $data = $this->exerciseModel->getTitle($id);
 
             return ['view' => 'newExerciseFields.php', 'data' => $data];
         }

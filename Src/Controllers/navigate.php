@@ -17,12 +17,12 @@ class Navigate
 
     public function showExercises()
     {
-        $exercises = $this->exerciseModel->getExercises();
+        $exercises = $this->exerciseModel->getAll();
         $this->renderer->render("showExercises.php", ['exercises' => $exercises]);
     }
     public function showTakeExercises()
     {
-        $exercises = $this->exerciseModel->getExercises();
+        $exercises = $this->exerciseModel->getAll();
         $this->renderer->render("manageExercise.php", ['exercises' => $exercises]);
     }
 }
