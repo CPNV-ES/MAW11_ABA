@@ -30,13 +30,15 @@
                 </thead>
 
                 <tbody>
-                <!-- ** refaire au propre ** -->
                 <?php foreach ($exercises as $exercise) { ?>
                     <tr>
                         <td><?= $exercise["title"]?></td>
                         <td>
                             <a title="Manage fields" href="#"><img src="/img/edit.png" class="fa fa-trash"></a>
-                            <a data-confirm="Are you sure?" title="delete" rel="nofollow" data-method="delete" href="#"><img src="/img/trash.png" class="fa fa-trash"></a>
+                            <a title="delete" href="#" onclick="if(confirm('Are you sure?')){document.getElementById('delete-form-<?= $exercise["exercise_id"] ?>').submit();} return false;"><img src="/img/trash.png" class="fa fa-trash"></a>
+                            <form id="delete-form-<?= $exercise["exercise_id"] ?>" method="POST" action="/exercises/delete" style="display:none;">
+                                <input type="hidden" name="exercise_id" value="<?= $exercise["exercise_id"] ?>">
+                            </form>
                         </td>
                     </tr>
                 <?php } ?>
@@ -55,7 +57,6 @@
                 </thead>
 
                 <tbody>
-                <!-- ** refaire au propre ** -->
                 <?php foreach ($exercises as $exercise) { ?>
                     <tr>
                         <td><?= $exercise["title"]?></td>
@@ -80,13 +81,15 @@
                 </thead>
 
                 <tbody>
-                <!-- ** refaire au propre ** -->
                 <?php foreach ($exercises as $exercise) { ?>
                     <tr>
                         <td><?= $exercise["title"]?></td>
                         <td>
                             <a title="Manage fields" href="#"><img src="/img/stats.png" class="fa fa-edit"></a>
-                            <a data-confirm="Are you sure?" title="delete" rel="nofollow" data-method="delete" href="#"><img src="/img/trash.png" class="fa fa-trash"></a>
+                            <a title="delete" href="#" onclick="if(confirm('Are you sure?')){document.getElementById('delete-form-closed-<?= $exercise["exercise_id"] ?>').submit();} return false;"><img src="/img/trash.png" class="fa fa-trash"></a>
+                            <form id="delete-form-closed-<?= $exercise["exercise_id"] ?>" method="POST" action="/exercises/delete" style="display:none;">
+                                <input type="hidden" name="exercise_id" value="<?= $exercise["exercise_id"] ?>">
+                            </form>
                         </td>
                     </tr>
                 <?php } ?>
