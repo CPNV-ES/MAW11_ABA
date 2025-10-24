@@ -35,5 +35,17 @@ class ExerciseController
         // Invalid, render the view
         return ['view' => 'newExercise.php', 'data' => $data];
     }
+    
+    public function delete()
+    {
+        $id = $_POST['exercise_id'] ?? null;
 
+        if (!empty($id)) {
+            $this->exerciseModel->delete($id);
+        }
+
+        // Redirect to exercises page
+        header('Location: /exercises');
+        exit;
+    }
 }
