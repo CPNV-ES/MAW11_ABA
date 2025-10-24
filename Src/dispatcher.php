@@ -42,6 +42,16 @@ Class Dispatcher{
                 $navigate = new Navigate();
                 $navigate->showTakeExercises();
                 break;
+
+            case '/exercises/delete':
+                require_once SRC_DIR . 'Controllers/exercise.php';
+                $exerciseController = new ExerciseController();
+
+                if ($method == 'POST') {
+                    $exerciseController->delete();
+                }
+                break;
+
             case '/exercises/newExerciseFields':
                 $renderer = new Renderer(); //repeat fix ?
                 $renderer->render("newExerciseFields.php");
