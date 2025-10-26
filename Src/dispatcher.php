@@ -1,5 +1,6 @@
 <?php
 require_once SRC_DIR . "renderer.php";
+
 Class Dispatcher{
 
     function __construct(){}
@@ -8,6 +9,18 @@ Class Dispatcher{
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $uri = rtrim($uri, '/') ?: '/';
         $method = $_SERVER['REQUEST_METHOD'];
+
+        if (preg_match('#^/exercises/(\d+)/fields$#', $uri, $matches)) {
+            $exerciseId = $matches[1];
+            require_once SRC_DIR . 'Controllers/field.php';
+            $fieldController = new FieldController();
+
+            if ($method == 'GET') {
+                $fieldController->manageFields($exerciseId);
+            }
+
+            return;
+        }
 
         switch ($uri) {
             case '/':
