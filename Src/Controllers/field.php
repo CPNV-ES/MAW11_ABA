@@ -38,4 +38,38 @@ class FieldController
 
         $this->renderer->render('manageExerciseFields.php', $data);
     }
+
+    public function editField($exerciseId, $fieldId)
+    {
+        $exercise = $this->exerciseModel->getById($exerciseId);
+        $field = $this->fieldModel->getById($fieldId);
+
+        if (!$exercise || !$field) {
+            header('Location: /exercises');
+            exit;
+        }
+
+        $data = [
+            'exercise' => $exercise,
+            'field' => $field
+        ];
+
+        $this->renderer->render('manageEditField.php', $data);
+    }
+
+    public function updateField($exerciseId, $fieldId)
+    {
+        $label = $_POST['field']['label'] ?? null;
+        $valueKind = $_POST['field']['value_kind'] ?? 'single_line';
+
+        if (empty($label)) {
+            header("Location: /exercises/$exerciseId/fields/$fieldId/edit");
+            exit;
+        }
+
+        $this->fieldModel->update($fieldId, $label, $valueKind);
+
+        header("Location: /exercises/$exerciseId/fields");
+        exit;
+    }
 }
