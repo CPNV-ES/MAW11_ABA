@@ -41,7 +41,7 @@
                             echo htmlspecialchars($valueKindDisplay[$field['value_kind']] ?? $field['value_kind']);
                             ?></td>
                         <td>
-                            <a title="Manage field" href="#"><img src="/img/edit.png" class="fa fa-edit"></a>
+                            <a title="Manage field" href="/exercises/<?= $exercise['exercise_id'] ?>/fields/<?= $field['field_id'] ?>/edit"><img src="/img/edit.png" class="fa fa-edit"></a>
                             <a title="Delete" href="#"><img src="/img/trash.png" class="fa fa-trash"></a>
                         </td>
                     </tr>

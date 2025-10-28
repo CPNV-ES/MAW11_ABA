@@ -22,6 +22,20 @@ Class Dispatcher{
             return;
         }
 
+        if (preg_match('#^/exercises/(\d+)/fields/(\d+)/edit$#', $uri, $matches)) {
+            $exerciseId = $matches[1];
+            $fieldId = $matches[2];
+            require_once SRC_DIR . 'Controllers/field.php';
+            $fieldController = new FieldController();
+
+            if ($method == 'GET') {
+                $fieldController->editField($exerciseId, $fieldId);
+            } else if ($method == 'POST') {
+                $fieldController->updateField($exerciseId, $fieldId);
+            }
+            return;
+        }
+
         switch ($uri) {
             case '/':
                 $renderer = new Renderer();
