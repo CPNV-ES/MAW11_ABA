@@ -1,5 +1,6 @@
 <?php
 require_once SRC_DIR . "renderer.php";
+
 Class Dispatcher{
 
     function __construct(){}
@@ -8,6 +9,32 @@ Class Dispatcher{
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $uri = rtrim($uri, '/') ?: '/';
         $method = $_SERVER['REQUEST_METHOD'];
+
+        if (preg_match('#^/exercises/(\d+)/fields$#', $uri, $matches)) {
+            $exerciseId = $matches[1];
+            require_once SRC_DIR . 'Controllers/field.php';
+            $fieldController = new FieldController();
+
+            if ($method == 'GET') {
+                $fieldController->manageFields($exerciseId);
+            }
+
+            return;
+        }
+
+        if (preg_match('#^/exercises/(\d+)/fields/(\d+)/edit$#', $uri, $matches)) {
+            $exerciseId = $matches[1];
+            $fieldId = $matches[2];
+            require_once SRC_DIR . 'Controllers/field.php';
+            $fieldController = new FieldController();
+
+            if ($method == 'GET') {
+                $fieldController->editField($exerciseId, $fieldId);
+            } else if ($method == 'POST') {
+                $fieldController->updateField($exerciseId, $fieldId);
+            }
+            return;
+        }
 
         switch ($uri) {
             case '/':
@@ -42,6 +69,16 @@ Class Dispatcher{
                 $navigate = new Navigate();
                 $navigate->showTakeExercises();
                 break;
+
+            case '/exercises/delete':
+                require_once SRC_DIR . 'Controllers/exercise.php';
+                $exerciseController = new ExerciseController();
+
+                if ($method == 'POST') {
+                    $exerciseController->delete();
+                }
+                break;
+
             case '/exercises/newExerciseFields':
                 $renderer = new Renderer(); //repeat fix ?
                 $renderer->render("newExerciseFields.php");
