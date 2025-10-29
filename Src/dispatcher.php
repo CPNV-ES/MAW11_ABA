@@ -12,8 +12,8 @@ Class Dispatcher{
 
         if (preg_match('#^/exercises/(\d+)/fields$#', $uri, $matches)) {
             $exerciseId = $matches[1];
-            require_once SRC_DIR . 'Controllers/field.php';
-            $fieldController = new FieldController();
+            require_once SRC_DIR . 'Controllers/Fields.php';
+            $fieldController = new Fields();
 
             if ($method == 'GET') {
                 $fieldController->manageFields($exerciseId);
@@ -25,8 +25,8 @@ Class Dispatcher{
         if (preg_match('#^/exercises/(\d+)/fields/(\d+)/edit$#', $uri, $matches)) {
             $exerciseId = $matches[1];
             $fieldId = $matches[2];
-            require_once SRC_DIR . 'Controllers/field.php';
-            $fieldController = new FieldController();
+            require_once SRC_DIR . 'Controllers/Fields.php';
+            $fieldController = new Fields();
 
             if ($method == 'GET') {
                 $fieldController->editField($exerciseId, $fieldId);
@@ -43,8 +43,8 @@ Class Dispatcher{
                 break;
 
             case '/exercises/new':
-                require_once SRC_DIR . 'Controllers/exercise.php';
-                $exerciseController = new ExerciseController();
+                require_once SRC_DIR . 'Controllers/Exercises.php';
+                $exerciseController = new Exercises();
 
                 if ($method == 'GET') {
                     $renderer = new Renderer(); //repeat fix ?
@@ -59,20 +59,20 @@ Class Dispatcher{
                 break;
 
             case '/exercises/answering':
-                require_once SRC_DIR . 'Controllers/navigate.php';
+                require_once SRC_DIR . 'Controllers/Navigate.php';
                 $navigate = new Navigate();
                 $navigate->showExercises();
                 break;
 
             case '/exercises':
-                require_once SRC_DIR . 'Controllers/navigate.php';
+                require_once SRC_DIR . 'Controllers/Navigate.php';
                 $navigate = new Navigate();
                 $navigate->showTakeExercises();
                 break;
 
             case '/exercises/delete':
-                require_once SRC_DIR . 'Controllers/exercise.php';
-                $exerciseController = new ExerciseController();
+                require_once SRC_DIR . 'Controllers/Exercises.php';
+                $exerciseController = new Exercises();
 
                 if ($method == 'POST') {
                     $exerciseController->delete();

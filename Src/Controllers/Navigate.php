@@ -1,6 +1,6 @@
 <?php
-require_once SRC_DIR . 'Models/database.php';
-require_once SRC_DIR . 'Models/exercises.php';
+require_once SRC_DIR . 'Models/Database.php';
+require_once SRC_DIR . 'Models/Exercise.php';
 require_once SRC_DIR . 'renderer.php';
 class Navigate
 {

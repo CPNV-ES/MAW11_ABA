@@ -1,11 +1,11 @@
 <?php
 
-require_once SRC_DIR . 'Models/database.php';
-require_once SRC_DIR . 'Models/exercises.php';
-require_once SRC_DIR . 'Models/fields.php';
+require_once SRC_DIR . 'Models/Database.php';
+require_once SRC_DIR . 'Models/Exercise.php';
+require_once SRC_DIR . 'Models/Field.php';
 require_once SRC_DIR . 'renderer.php';
 
-class FieldController
+class Fields
 {
     private $db;
     private $exerciseModel;
