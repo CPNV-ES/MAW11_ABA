@@ -1,5 +1,5 @@
 <?php
-require_once SRC_DIR . "renderer.php";
+require_once SRC_DIR . "Renderer.php";
 
 Class Dispatcher{
 
@@ -39,7 +39,7 @@ Class Dispatcher{
         switch ($uri) {
             case '/':
                 $renderer = new Renderer();
-                $renderer->render("home.php");
+                $renderer->render("Home.php");
                 break;
 
             case '/exercises/new':
@@ -48,7 +48,7 @@ Class Dispatcher{
 
                 if ($method == 'GET') {
                     $renderer = new Renderer(); //repeat fix ?
-                    $renderer->render("newExercise.php");
+                    $renderer->render("New/Exercise.php");
                 }
                 if ($method == 'POST') {
                     $result = $exerciseController->create();
@@ -81,7 +81,7 @@ Class Dispatcher{
 
             case '/exercises/newExerciseFields':
                 $renderer = new Renderer(); //repeat fix ?
-                $renderer->render("newExerciseFields.php");
+                $renderer->render("New/ExerciseFields.php");
                 break;
             default:
                 header('HTTP/1.0 404 Not Found');

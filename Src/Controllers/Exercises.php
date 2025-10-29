@@ -1,7 +1,7 @@
 <?php
 require_once SRC_DIR . 'Models/Database.php';
 require_once SRC_DIR . 'Models/Exercise.php';
-require_once SRC_DIR . 'renderer.php';
+require_once SRC_DIR . 'Renderer.php';
 class Exercises
 {
     private $db;
@@ -29,11 +29,11 @@ class Exercises
 
             $data = $this->exerciseModel->getTitle($id);
 
-            return ['view' => 'newExerciseFields.php', 'data' => $data];
+            return ['view' => 'New/ExerciseFields.php', 'data' => $data];
         }
 
         // Invalid, render the view
-        return ['view' => 'newExercise.php', 'data' => $data];
+        return ['view' => 'New/Exercise.php', 'data' => $data];
     }
     
     public function delete()

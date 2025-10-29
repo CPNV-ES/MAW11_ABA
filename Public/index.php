@@ -2,7 +2,7 @@
 
 define('SRC_DIR', __DIR__ . '/../src/');
 
-require_once SRC_DIR . 'dispatcher.php';
+require_once SRC_DIR . 'Dispatcher.php';
 
 $dispatcher = new Dispatcher();
 $dispatcher->dispatch();
