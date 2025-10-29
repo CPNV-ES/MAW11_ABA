@@ -14,7 +14,7 @@
         <meta name="csrf-token" content="WfvLG3l6aozgVBEFX1OGsQGwC1vggPUAScJh6xelh5ZWigN567rgwsNfL3MYBoWz3A+zhcA3nNdgoHuCKpj5Bw==" />
 
 
-        <link rel="stylesheet" media="all" href="/css/manageExercise.css" />
+        <link rel="stylesheet" media="all" href="/css/manage-exercise.css" />
     </head>
 
     <body>
