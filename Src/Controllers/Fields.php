@@ -1,11 +1,11 @@
 <?php
 
-require_once SRC_DIR . 'Models/database.php';
-require_once SRC_DIR . 'Models/exercises.php';
-require_once SRC_DIR . 'Models/fields.php';
-require_once SRC_DIR . 'renderer.php';
+require_once SRC_DIR . 'Models/Database.php';
+require_once SRC_DIR . 'Models/Exercise.php';
+require_once SRC_DIR . 'Models/Field.php';
+require_once SRC_DIR . 'Renderer.php';
 
-class FieldController
+class Fields
 {
     private $db;
     private $exerciseModel;
@@ -36,7 +36,7 @@ class FieldController
             'fields' => $fields
         ];
 
-        $this->renderer->render('manageExerciseFields.php', $data);
+        $this->renderer->render('Manage/ExerciseFields.php', $data);
     }
 
     public function editField($exerciseId, $fieldId)
@@ -54,7 +54,7 @@ class FieldController
             'field' => $field
         ];
 
-        $this->renderer->render('manageEditField.php', $data);
+        $this->renderer->render('Manage/EditField.php', $data);
     }
 
     public function updateField($exerciseId, $fieldId)

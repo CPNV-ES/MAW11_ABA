@@ -1,7 +1,7 @@
 <?php
-require_once SRC_DIR . 'Models/database.php';
-require_once SRC_DIR . 'Models/exercises.php';
-require_once SRC_DIR . 'renderer.php';
+require_once SRC_DIR . 'Models/Database.php';
+require_once SRC_DIR . 'Models/Exercise.php';
+require_once SRC_DIR . 'Renderer.php';
 class Navigate
 {
     private $db;
@@ -18,11 +18,11 @@ class Navigate
     public function showExercises()
     {
         $exercises = $this->exerciseModel->getAll();
-        $this->renderer->render("showExercises.php", ['exercises' => $exercises]);
+        $this->renderer->render("Answering/Exercises.php", ['exercises' => $exercises]);
     }
     public function showTakeExercises()
     {
         $exercises = $this->exerciseModel->getAll();
-        $this->renderer->render("manageExercise.php", ['exercises' => $exercises]);
+        $this->renderer->render("Manage/Exercise.php", ['exercises' => $exercises]);
     }
 }
