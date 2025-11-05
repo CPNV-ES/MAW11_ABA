@@ -33,7 +33,7 @@ CREATE TABLE fields (
 );
 
 -- ==========================================
--- Table: answers
+-- Table: Answers
 -- Stores student responses to exercises
 -- ==========================================
 CREATE TABLE answers (

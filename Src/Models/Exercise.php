@@ -13,7 +13,31 @@ class Exercise {
         $stmt = $this->pdo->query("SELECT exercise_id, title FROM `exercises`");
         return $stmt->fetchAll();
     }
+    public function getAllAnswersByExercise($exerciseId)
+    {
+        $sql = "
+        SELECT 
+            a.answer_id,
+            a.answer_text,
+            a.answer_date,
+            f.field_id,
+            f.exercise_id
+        FROM answers a
+        JOIN fields f ON a.field_id = f.field_id
+        WHERE f.exercise_id = :exerciseId
+        ORDER BY a.answer_date DESC
+    ";
 
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['exerciseId' => $exerciseId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getAllFieldsFromAnExercise($id)
+    {
+        $stmt = $this->pdo->prepare("SELECT exercise_id,label,field_id FROM `fields` WHERE `exercise_id` = :id");
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     public function create($title)
     {
         $stmt = $this->pdo->prepare("INSERT INTO `exercises` (title) VALUES (:title)");

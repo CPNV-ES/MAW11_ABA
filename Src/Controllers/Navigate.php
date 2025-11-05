@@ -25,4 +25,31 @@ class Navigate
         $exercises = $this->exerciseModel->getAll();
         $this->renderer->render("Manage/Exercise.php", ['exercises' => $exercises]);
     }
+    public function showAllAnswers()
+    {
+        $id = $_POST['exercise_id'] ?? null;
+
+        $data = $this->exerciseModel->getTitle($id);
+        $data['id'] = $id;
+        $fields = $this->exerciseModel->getAllFieldsFromAnExercise($id);
+        $answersRaw = $this->exerciseModel->getAllAnswersByExercise($id);
+
+        $answersGrouped = [];
+        foreach ($answersRaw as $row) {
+            $date = $row['answer_date'];
+            if (!isset($answersGrouped[$date])) {
+                $answersGrouped[$date] = [];
+            }
+            $answersGrouped[$date][$row['field_id']] = [
+                'answer_text' => $row['answer_text'],
+                'answered' => !empty(trim($row['answer_text']))
+            ];
+        }
+
+        $this->renderer->render("Answers/All.php", [
+            'answers' => $answersGrouped,
+            'fields' => $fields,
+            'data' => $data
+        ]);
+    }
 }

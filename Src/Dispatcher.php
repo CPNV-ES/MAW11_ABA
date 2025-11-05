@@ -80,8 +80,14 @@ Class Dispatcher{
                 break;
 
             case '/exercises/newExerciseFields':
-                $renderer = new Renderer(); //repeat fix ?
+                $renderer = new Renderer();
                 $renderer->render("New/ExerciseFields.php");
+                break;
+
+            case '/exercises/allAnswers':
+                require_once SRC_DIR . 'Controllers/Navigate.php';
+                $navigate = new Navigate();
+                $navigate->showAllAnswers();
                 break;
             default:
                 header('HTTP/1.0 404 Not Found');

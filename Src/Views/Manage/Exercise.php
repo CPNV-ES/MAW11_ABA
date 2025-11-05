@@ -61,7 +61,10 @@
                     <tr>
                         <td><?= $exercise["title"]?></td>
                         <td>
-                            <a title="Show results" href="#"><img class="fa fa-edit" src="/img/stats.png"></a>
+                            <a title="Show results" onclick="document.getElementById('Show-result-form-<?= $exercise["exercise_id"] ?>').submit();"><img class="fa fa-edit" src="/img/stats.png"></a>
+                            <form id="Show-result-form-<?= $exercise["exercise_id"] ?>" method="POST" action="/exercises/allAnswers" style="display:none;">
+                                <input type="hidden" name="exercise_id" value="<?= $exercise["exercise_id"] ?>">
+                            </form>
                             <a title="Close" rel="nofollow" data-method="put" href="#"><img src="/img/close.png" class="fa fa-trash"></a>
                         </td>
                     </tr>
