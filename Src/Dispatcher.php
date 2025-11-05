@@ -36,6 +36,18 @@ Class Dispatcher{
             return;
         }
 
+        if (preg_match('#^/exercises/(\d+)/fulfillments/new$#', $uri, $matches)) {
+            $exerciseId = $matches[1];
+            require_once SRC_DIR . 'Controllers/Answers.php';
+            $answerController = new Answers();
+
+            if ($method == 'GET') {
+                $answerController->fulfillment($exerciseId);
+            }
+
+            return;
+        }
+
         switch ($uri) {
             case '/':
                 $renderer = new Renderer();
