@@ -37,12 +37,27 @@ class Navigate
         $answersGrouped = [];
         foreach ($answersRaw as $row) {
             $date = $row['answer_date'];
+            $fieldId = $row['field_id'] ?? null;
+            if (!$fieldId) continue;
+
             if (!isset($answersGrouped[$date])) {
                 $answersGrouped[$date] = [];
             }
-            $answersGrouped[$date][$row['field_id']] = [
-                'answer_text' => $row['answer_text'],
-                'answered' => !empty(trim($row['answer_text']))
+
+            $text = trim($row['answer_text'] ?? '');
+            $length = strlen($text);
+
+            if ($length === 0) {
+                $state = 'empty';
+            } elseif ($length <= 20) {
+                $state = 'short';
+            } else {
+                $state = 'long';
+            }
+
+            $answersGrouped[$date][$fieldId] = [
+                'answer_text' => $text,
+                'state' => $state
             ];
         }
 
@@ -52,4 +67,5 @@ class Navigate
             'data' => $data
         ]);
     }
+
 }

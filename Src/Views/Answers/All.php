@@ -1,4 +1,3 @@
-
 <header class="heading results">
     <section class="container">
         <a href="/"><img src="/assets/logo-84d7d70645fbe179ce04c983a5fae1e6cba523d7cd28e0cd49a04707ccbef56e.png" /></a>
@@ -35,9 +34,24 @@
                 <?php foreach ($fields as $field): ?>
                     <?php
                     $fieldId = $field['field_id'];
-                    $answered = isset($answerSet[$fieldId]) && $answerSet[$fieldId]['answered'];
+                    $state = $answerSet[$fieldId]['state'] ?? 'empty';
+
+                    if ($state === 'short') {
+                        $image = '/img/trick.png';
+                        $tooltip = 'Réponse courte';
+                    } elseif ($state === 'long') {
+                        $image = '/img/doubletrick.png';
+                        $tooltip = 'Réponse longue';
+                    } else {
+                        $image = '/img/cross.png';
+                        $tooltip = 'Aucune réponse';
+                    }
                     ?>
-                    <td><?= $answered ? '✓' : '✗' ?></td>
+                    <td title="<?= htmlspecialchars($tooltip) ?>">
+                        <img class="imgstate" src="<?= htmlspecialchars($image) ?>"
+                             alt="<?= htmlspecialchars($tooltip) ?>"
+                             class="answer-icon">
+                    </td>
                 <?php endforeach; ?>
             </tr>
         <?php endforeach; ?>
@@ -46,5 +60,4 @@
 
     </body>
     </html>
-
 </main>
