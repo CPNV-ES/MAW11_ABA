@@ -21,16 +21,16 @@
     <table>
         <thead>
         <tr>
-            <th>Réponse</th>
+            <th>Take</th>
             <?php foreach ($fields as $field): ?>
-                <th><?= htmlspecialchars($field["label"]) ?></th>
+                <th><a href="#"><?= htmlspecialchars($field["label"]) ?></a></th>
             <?php endforeach; ?>
         </tr>
         </thead>
         <tbody>
         <?php foreach ($answers as $date => $answerSet): ?>
             <tr>
-                <td><?= $date ?></td>
+                <td><a href="#"><?= $date ?></a></td>
                 <?php foreach ($fields as $field): ?>
                     <?php
                     $fieldId = $field['field_id'];
