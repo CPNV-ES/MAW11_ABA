@@ -45,6 +45,10 @@ Class Dispatcher{
                 $answerController->fulfillment($exerciseId);
             }
 
+            if ($method == 'POST') {
+                $answerController->save();
+            }
+
             return;
         }
 

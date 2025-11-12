@@ -28,40 +28,15 @@
                 <div class="field">
                     <label for="fulfillment_answers_attributes__value"><?= $field["label"] ?></label>
                     <?php if ($field["value_kind"] === 'single_line') { ?>
-                        <?php echo '<input type="text" name="fulfillment[answers_attributes][][value]" id="fulfillment_answers_attributes__value" />' ?>
+                        <input type="text" name="answers[<?= $field['field_id'] ?>]" id="answers[<?= $field['field_id'] ?>]" value="<?= htmlspecialchars($_POST['answer_text'] ?? '') ?>" />
                     <?php }
 
                     else { ?>
-                    <?php echo '<textarea name="fulfillment[answers_attributes][][value]" id="fulfillment_answers_attributes__value"></textarea>' ?>
+                    <textarea name="answers[<?= $field['field_id'] ?>]" id="answers[<?= $field['field_id'] ?>]" value="<?= htmlspecialchars($_POST['answer_text'] ?? '') ?>"></textarea>
                     <?php } ?>
+                    <input type="hidden" id="field_ids[<?= $field['field_id'] ?>]" value="<?= $field['field_id'] ?>"/>
                 </div>
             <?php } ?>
-
-
-
-
-            <!--             <input type="hidden" value="263" name="fulfillment[answers_attributes][][field_id]" id="fulfillment_answers_attributes__field_id" /> */
-            <div class="field">
-                <label for="fulfillment_answers_attributes__value">yxooo</label>
-                <input type="text" name="fulfillment[answers_attributes][][value]" id="fulfillment_answers_attributes__value" />
-
-            </div>
-
-
-            <input type="hidden" value="264" name="fulfillment[answers_attributes][][field_id]" id="fulfillment_answers_attributes__field_id" />
-            <div class="field">
-                <label for="fulfillment_answers_attributes__value">yooooo</label>
-                <input type="text" name="fulfillment[answers_attributes][][value]" id="fulfillment_answers_attributes__value" />
-
-            </div>
-
-
-            <input type="hidden" value="265" name="fulfillment[answers_attributes][][field_id]" id="fulfillment_answers_attributes__field_id" />
-            <div class="field">
-                <label for="fulfillment_answers_attributes__value">yooooooooooo</label>
-                <input type="text" name="fulfillment[answers_attributes][][value]" id="fulfillment_answers_attributes__value" />
-
-            </div> -->
 
             <div class="actions">
                 <input type="submit" name="commit" value="Save" data-disable-with="Save" />
