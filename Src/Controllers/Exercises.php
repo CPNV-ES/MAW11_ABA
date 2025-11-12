@@ -1,6 +1,7 @@
 <?php
 require_once SRC_DIR . 'Models/Database.php';
 require_once SRC_DIR . 'Models/Exercise.php';
+require_once SRC_DIR . 'Models/Field.php';
 require_once SRC_DIR . 'Renderer.php';
 class Exercises
 {
@@ -28,8 +29,7 @@ class Exercises
             $id = $this->exerciseModel->create($title);
 
             $data = $this->exerciseModel->getTitle($id);
-
-            return ['view' => 'New/ExerciseFields.php', 'data' => $data];
+            header('Location:' . $id . '/fields');
         }
 
         // Invalid, render the view

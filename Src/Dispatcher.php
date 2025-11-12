@@ -79,10 +79,6 @@ Class Dispatcher{
                 }
                 break;
 
-            case '/exercises/newExerciseFields':
-                $renderer = new Renderer(); //repeat fix ?
-                $renderer->render("New/ExerciseFields.php");
-                break;
             default:
                 header('HTTP/1.0 404 Not Found');
                 break;
