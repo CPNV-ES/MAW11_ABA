@@ -43,12 +43,12 @@ class Answers
         $fields_ids = $_POST['field_ids'];
         $answers = $_POST['answers'] ?? [];
 
-        foreach ($fields_ids as $field_id){
-            $date = $this->answerModel->insert($field_id);   
+        foreach ($fields_ids as $index => $field_id){
+            $id = $this->answerModel->insert($field_id);
+            if (isset($answers[$index])) {
+                $this->answerModel->updateById($answers[$index], $id);
+            }
         }
-        //foreach ($answers as $answer){
-            //$this->answerModel->updateByDate($answer,$date);
-        //}
     }
 
 }

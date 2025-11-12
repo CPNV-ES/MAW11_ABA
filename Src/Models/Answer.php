@@ -10,20 +10,22 @@ class Answer {
     }
 
     function insert($field_id){
-
-    $stmt = $this->pdo->prepare("INSERT INTO `answers` (field_id,answer_text,answer_date) VALUES (:field_id,:answer_text,:answer_date)");
-    $stmt->execute(
-        [
+        $stmt = $this->pdo->prepare("INSERT INTO answers (field_id,answer_text,answer_date) VALUES (:field_id,:answer_text,:answer_date)");
+        $stmt->execute([
             'field_id' => $field_id,
             'answer_text' => null,
             'answer_date' => date("Y-m-d H:i:s")
         ]);
 
-    return date("Y-m-d H:i:s");
+        return $this->pdo->lastInsertId();
     }
-    function updateByDate($answer,$date){
 
-
+    function updateById($answer, $answer_id){ 
+        $stmt = $this->pdo->prepare("UPDATE answers SET answer_text = :answer_text WHERE answer_id = :answer_id");
+        $stmt->execute([
+            'answer_text' => $answer,
+            'answer_id' => $answer_id
+        ]);
     }
 
 }
