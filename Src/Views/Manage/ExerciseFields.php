@@ -12,7 +12,8 @@
         <title>ExerciseLooper</title>
         <meta name="csrf-param" content="authenticity_token" />
         <meta name="csrf-token" content="0ld8nT0XtAfXOB6bofLoeNZGfvdzqH1+nzj7sOL8PJTdJrT/r9c+SfQzIO3mp+t6C/nGKVMfFKm2WuHZ38FCBQ==" />
-        <link rel="stylesheet" media="all" href="/css/manage-exercise.css" />
+        <link rel="stylesheet" media="all" href="/css/manage-fields-edit.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     </head>
 
     <body>
@@ -41,8 +42,8 @@
                             echo htmlspecialchars($valueKindDisplay[$field['value_kind']] ?? $field['value_kind']);
                             ?></td>
                         <td>
-                            <a title="Manage field" href="/exercises/<?= $exercise['exercise_id'] ?>/fields/<?= $field['field_id'] ?>/edit"><img src="/img/edit.png" class="fa fa-edit"></a>
-                            <a title="Delete" href="#"><img src="/img/trash.png" class="fa fa-trash"></a>
+                            <a title="Edit" href="/exercises/<?= $exercise['exercise_id'] ?>/fields/<?= $field['field_id'] ?>/edit"><i class="fa fa-edit"></i></a>
+                            <a data-confirm="Are you sure?" title="Destroy" rel="nofollow" data-method="delete" href="#"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
