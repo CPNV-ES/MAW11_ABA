@@ -33,13 +33,14 @@ CREATE TABLE fields (
 );
 
 -- ==========================================
--- Table: answers
+-- Table: Answers
 -- Stores student responses to exercises
 -- ==========================================
 CREATE TABLE answers (
     answer_id INT AUTO_INCREMENT PRIMARY KEY,
     field_id INT NOT NULL,
     answer_text TEXT,
+    answer_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (field_id) REFERENCES fields(field_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
