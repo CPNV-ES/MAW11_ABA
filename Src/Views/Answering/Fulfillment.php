@@ -29,12 +29,13 @@
                     <label for="fulfillment_answers_attributes__value"><?= $field["label"] ?></label>
                     <?php if ($field["value_kind"] === 'single_line') { ?>
                         <input type="text" name="answers[<?= $field['field_id'] ?>]" id="answers[<?= $field['field_id'] ?>]" value="<?= htmlspecialchars($_POST['answer_text'] ?? '') ?>" />
+                        <input type="hidden" name="field_ids[<?= $field['field_id'] ?>]" id="field_ids[<?= $field['field_id'] ?>]" value="<?= $field['field_id'] ?>"/>
                     <?php }
 
                     else { ?>
                     <textarea name="answers[<?= $field['field_id'] ?>]" id="answers[<?= $field['field_id'] ?>]" value="<?= htmlspecialchars($_POST['answer_text'] ?? '') ?>"></textarea>
+                    <input type="hidden" name="field_ids[<?= $field['field_id'] ?>]" id="field_ids[<?= $field['field_id'] ?>]" value="<?= $field['field_id'] ?>"/>
                     <?php } ?>
-                    <input type="hidden" id="field_ids[<?= $field['field_id'] ?>]" value="<?= $field['field_id'] ?>"/>
                 </div>
             <?php } ?>
 
