@@ -36,14 +36,10 @@ class Exercise {
 
     public function delete($id)
     {
-        try {
-            $stmt = $this->pdo->prepare("DELETE FROM `exercises` WHERE exercise_id = :id");
-            $stmt->execute(['id' => $id]);
-            return $stmt->rowCount() > 0;
-        } catch (PDOException $e) {
-            error_log("Error deleting exercise: " . $e->getMessage());
-            return false;
-        }
+        $stmt = $this->pdo->prepare("DELETE FROM `exercises` WHERE exercise_id = :id");
+        $stmt->execute(['id' => $id]);
+        return $stmt->rowCount() > 0;
+
     }
     public function setStatusToAnswering($id)
     {
