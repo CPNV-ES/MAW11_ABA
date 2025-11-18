@@ -7,12 +7,14 @@ class Exercises
 {
     private $db;
     private $exerciseModel;
+    private $fieldModel;
     private $renderer;
 
     public function __construct()
     {
         $this->db = new Database();
         $this->exerciseModel = new Exercise($this->db);
+        $this->fieldModel = new Field($this->db);
         $this->renderer = new Renderer();
     }
 
@@ -48,4 +50,18 @@ class Exercises
         header('Location: /exercises');
         exit;
     }
+
+    public function setStatusToAnswering($id) {
+        if (!empty($this->fieldModel->getAllByExerciseId($id))) {
+            if ($this->exerciseModel->setStatusToAnswering($id)) {
+                header('Location: /exercises');
+            } else {
+                header('Location:' . $id . '/fields');
+            }
+        } else {
+            header('Location:' . $id . '/fields');
+        }
+
+    }
+
 }
