@@ -33,14 +33,30 @@ CREATE TABLE fields (
 );
 
 -- ==========================================
--- Table: Answers
+-- Table: fulfillments
+-- Represents one student's completion of an exercise
+-- ==========================================
+CREATE TABLE fulfillments (
+    fulfillment_id INT AUTO_INCREMENT PRIMARY KEY,
+    exercise_id INT NOT NULL,
+    fulfillment_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (exercise_id) REFERENCES exercises(exercise_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+-- ==========================================
+-- Table: answers
 -- Stores student responses to exercises
 -- ==========================================
 CREATE TABLE answers (
     answer_id INT AUTO_INCREMENT PRIMARY KEY,
+    fulfillment_id INT NOT NULL,
     field_id INT NOT NULL,
     answer_text TEXT,
-    answer_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (fulfillment_id) REFERENCES fulfillments(fulfillment_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
     FOREIGN KEY (field_id) REFERENCES fields(field_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
@@ -57,3 +73,12 @@ INSERT INTO fields (exercise_id, label, value_kind, position) VALUES
 (1, 'Your Name', 'single_line', 1),
 (1, 'Favorite Programming Languages', 'single_line_list', 2),
 (1, 'Why do you want to learn PHP?', 'multi_line', 3);
+
+-- Sample fulfillment
+INSERT INTO fulfillments (exercise_id) VALUES (1);
+
+-- Sample answers for this fulfillment
+INSERT INTO answers (fulfillment_id, field_id, answer_text) VALUES
+(1, 1, 'John Doe'),
+(1, 2, 'PHP, JavaScript, Python'),
+(1, 3, 'Because it is widely used for web development');
