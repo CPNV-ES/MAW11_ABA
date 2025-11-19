@@ -5545,4 +5545,6 @@ table.records td:last-child {
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
-
+.imgstate {
+    width: 25px;
+}

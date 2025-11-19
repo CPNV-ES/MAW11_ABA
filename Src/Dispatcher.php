@@ -49,6 +49,17 @@ Class Dispatcher{
                 $answerController->save();
             }
 
+        if (preg_match('#^/exercises/(\d+)/?$#', parse_url($uri, PHP_URL_PATH), $matches)) {
+            $exerciseId = $matches[1];
+
+            $status = $_GET['exercise']['status'] ?? null;
+
+            require_once SRC_DIR . 'Controllers/Exercises.php';
+            $exerciseController = new Exercises();
+
+            if ($method == 'GET' && $status == 'answering') {
+                $exerciseController->setStatusToAnswering($exerciseId);
+            }
             return;
         }
 
@@ -95,9 +106,10 @@ Class Dispatcher{
                 }
                 break;
 
-            case '/exercises/newExerciseFields':
-                $renderer = new Renderer(); //repeat fix ?
-                $renderer->render("New/ExerciseFields.php");
+            case '/exercises/allAnswers':
+                require_once SRC_DIR . 'Controllers/Navigate.php';
+                $navigate = new Navigate();
+                $navigate->showAllAnswers();
                 break;
             default:
                 header('HTTP/1.0 404 Not Found');

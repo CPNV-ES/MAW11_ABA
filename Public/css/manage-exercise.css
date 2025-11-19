@@ -148,7 +148,6 @@ sup {
 
 img {
     border-style: none;
-    width: 20px;
 }
 
 /* Forms
@@ -1135,7 +1134,8 @@ img {
     font-style: normal;
     font-variant: normal;
     text-rendering: auto;
-    line-height: 1; }
+    line-height: 1;
+    width: 20px;                }
 
 .fa-lg {
     font-size: 1.33333em;
