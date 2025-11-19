@@ -36,6 +36,19 @@ Class Dispatcher{
             return;
         }
 
+        if (preg_match('#^/exercises/(\d+)/fulfillments/new$#', $uri, $matches)) {
+            $exerciseId = $matches[1];
+            require_once SRC_DIR . 'Controllers/Answers.php';
+            $answerController = new Answers();
+
+            if ($method == 'GET') {
+                $answerController->fulfillment($exerciseId);
+            }
+
+            if ($method == 'POST') {
+                $answerController->save();
+            }
+
         if (preg_match('#^/exercises/(\d+)/?$#', parse_url($uri, PHP_URL_PATH), $matches)) {
             $exerciseId = $matches[1];
 

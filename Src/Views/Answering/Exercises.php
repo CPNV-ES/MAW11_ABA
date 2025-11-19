@@ -25,7 +25,7 @@
             <li class="row">
                 <div class="column card">
                     <div class="title"><?= $exercise["title"]?></div>
-                    <a class="button" href="#">Take it</a>
+                    <a class="button" href="/exercises/<?= $exercise["exercise_id"] ?>/fulfillments/new">Take it</a>
                 </div>
             </li>
         <?php } ?>
