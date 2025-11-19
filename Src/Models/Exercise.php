@@ -19,13 +19,15 @@ class Exercise {
         SELECT 
             a.answer_id,
             a.answer_text,
-            a.answer_date,
+            a.fulfillment_id,
             f.field_id,
-            f.exercise_id
+            f.exercise_id,
+            fu.fulfillment_date
         FROM answers a
         JOIN fields f ON a.field_id = f.field_id
+        JOIN fulfillments fu ON a.fulfillment_id = fu.fulfillment_id
         WHERE f.exercise_id = :exerciseId
-        ORDER BY a.answer_date DESC
+        ORDER BY fu.fulfillment_date DESC, a.answer_id ASC
     ";
 
         $stmt = $this->pdo->prepare($sql);

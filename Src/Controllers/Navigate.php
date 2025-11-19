@@ -36,12 +36,15 @@ class Navigate
 
         $answersGrouped = [];
         foreach ($answersRaw as $row) {
-            $date = $row['answer_date'];
+            $fulfillmentId = $row['fulfillment_id'];
             $fieldId = $row['field_id'] ?? null;
             if (!$fieldId) continue;
 
-            if (!isset($answersGrouped[$date])) {
-                $answersGrouped[$date] = [];
+            if (!isset($answersGrouped[$fulfillmentId])) {
+                $answersGrouped[$fulfillmentId] = [
+                    'fulfillment_date' => $row['fulfillment_date'],
+                    'answers' => []
+                ];
             }
 
             $text = trim($row['answer_text'] ?? '');
@@ -55,7 +58,7 @@ class Navigate
                 $state = 'long';
             }
 
-            $answersGrouped[$date][$fieldId] = [
+            $answersGrouped[$fulfillmentId]['answers'][$fieldId] = [
                 'answer_text' => $text,
                 'state' => $state
             ];

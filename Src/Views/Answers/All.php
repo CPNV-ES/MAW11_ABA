@@ -28,13 +28,13 @@
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($answers as $date => $answerSet): ?>
+        <?php foreach ($answers as $fulfillmentId => $fulfillment): ?>
             <tr>
-                <td><a href="#"><?= $date ?></a></td>
+                <td><a href="#"><?= htmlspecialchars($fulfillment['fulfillment_date']) ?></a></td>
                 <?php foreach ($fields as $field): ?>
                     <?php
                     $fieldId = $field['field_id'];
-                    $state = $answerSet[$fieldId]['state'] ?? 'empty';
+                    $state = $fulfillment['answers'][$fieldId]['state'] ?? 'empty';
 
                     if ($state === 'short') {
                         $image = '/img/trick.png';
