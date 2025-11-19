@@ -48,6 +48,7 @@ Class Dispatcher{
             if ($method == 'POST') {
                 $answerController->save();
             }
+        }
 
         if (preg_match('#^/exercises/(\d+)/?$#', parse_url($uri, PHP_URL_PATH), $matches)) {
             $exerciseId = $matches[1];
