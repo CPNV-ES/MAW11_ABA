@@ -61,7 +61,7 @@
                     <tr>
                         <td><?= $exercise["title"]?></td>
                         <td>
-                            <a title="Show results" href="/exercises/<?= $exercise["exercise_id"] ?>/results" onclick="document.getElementById('Show-result-form-<?= $exercise["exercise_id"] ?>').submit();"><i class="fa fa-chart-bar"></i></a>
+                            <a title="Show results" href="/exercises/<?= $exercise["exercise_id"] ?>/results"><i class="fa fa-chart-bar"></i></a>
                             <a title="Close" rel="nofollow" data-method="put" href="#"><i class="fa fa-minus-circle"></i></a>
                         </td>
                     </tr>
@@ -85,7 +85,7 @@
                     <tr>
                         <td><?= $exercise["title"]?></td>
                         <td>
-                            <a title="Show results" href="/exercises/<?= $exercise["exercise_id"] ?>/results" onclick="document.getElementById('Show-result-form-<?= $exercise["exercise_id"] ?>').submit();"><i class="fa fa-chart-bar"></i></a>
+                            <a title="Show results" href="/exercises/<?= $exercise["exercise_id"] ?>/results"><i class="fa fa-chart-bar"></i></a>
                             <a title="delete" href="#" onclick="if(confirm('Are you sure?')){document.getElementById('delete-form-closed-<?= $exercise["exercise_id"] ?>').submit();} return false;"><i class="fa fa-trash"></i></a>
                             <form id="delete-form-closed-<?= $exercise["exercise_id"] ?>" method="POST" action="/exercises/delete" style="display:none;">
                                 <input type="hidden" name="exercise_id" value="<?= $exercise["exercise_id"] ?>">
