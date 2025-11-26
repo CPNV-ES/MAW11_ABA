@@ -64,7 +64,17 @@ Class Dispatcher{
             }
             return;
         }
+        if (preg_match('#^/exercises/(\d+)/results$#', parse_url($uri, PHP_URL_PATH), $matches)) {
+            $exerciseId = $matches[1];
 
+            require_once SRC_DIR . 'Controllers/Navigate.php';
+            $navigate = new Navigate();
+
+            if ($method == 'GET') {
+                $navigate->showAllAnswers($exerciseId);
+            }
+            return;
+        }
         switch ($uri) {
             case '/':
                 $renderer = new Renderer();
@@ -107,13 +117,6 @@ Class Dispatcher{
                     $exerciseController->delete();
                 }
                 break;
-
-            case '/exercises/allAnswers':
-                require_once SRC_DIR . 'Controllers/Navigate.php';
-                $navigate = new Navigate();
-                $navigate->showAllAnswers();
-                break;
-
             default:
                 http_response_code(404);
                 require_once __DIR__ . '/Views/Errors/404.php';
