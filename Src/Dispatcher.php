@@ -48,6 +48,7 @@ Class Dispatcher{
             if ($method == 'POST') {
                 $answerController->save();
             }
+            return;
         }
 
         if (preg_match('#^/exercises/(\d+)/?$#', parse_url($uri, PHP_URL_PATH), $matches)) {
@@ -112,9 +113,11 @@ Class Dispatcher{
                 $navigate = new Navigate();
                 $navigate->showAllAnswers();
                 break;
+
             default:
-                header('HTTP/1.0 404 Not Found');
-                break;
+                http_response_code(404);
+                require_once __DIR__ . '/Views/Errors/404.php';
+                exit;
         }
     }
 }

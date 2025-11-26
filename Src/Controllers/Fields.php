@@ -25,7 +25,7 @@ class Fields
         $exercise = $this->exerciseModel->getById($exerciseId);
 
         if (!$exercise) {
-            header('Location: /exercises');
+            header('Location: /Errors/404');
             exit;
         }
 
@@ -45,7 +45,7 @@ class Fields
         $field = $this->fieldModel->getById($fieldId);
 
         if (!$exercise || !$field) {
-            header('Location: /exercises');
+            header('Location: /Errors/404');
             exit;
         }
 
