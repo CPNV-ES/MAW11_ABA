@@ -35,7 +35,7 @@ class Navigate
 
         $answersGrouped = [];
         foreach ($answersRaw as $row) {
-            $date = $row['answer_date'];
+            $date = $row['fulfillment_date'];
             $fieldId = $row['field_id'] ?? null;
             if (!$fieldId) continue;
 
