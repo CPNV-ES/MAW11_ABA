@@ -10,7 +10,7 @@ class Exercise {
     }
 
     public function getAll() {
-        $stmt = $this->pdo->query("SELECT exercise_id, title FROM `exercises`");
+        $stmt = $this->pdo->query("SELECT exercise_id, title, status FROM `exercises`");
         return $stmt->fetchAll();
     }
     public function getAllAnswersByExercise($exerciseId)
@@ -54,6 +54,12 @@ class Exercise {
 
     public function getById($id) {
         $stmt = $this->pdo->prepare("SELECT * FROM `exercises` WHERE exercise_id = :id");
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+        public function getStatus($id) {
+        $stmt = $this->pdo->prepare("SELECT status FROM `exercises` WHERE exercise_id = :id");
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }

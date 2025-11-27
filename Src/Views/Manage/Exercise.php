@@ -31,7 +31,7 @@
 
                 <tbody>
                 <?php foreach ($exercises as $exercise) {
-                        if (isset($exercise["status"]) && $exercise["status"] === "building") {
+                        if (isset($exercise["status"]) && $exercise["status"] === 'building') {
                     ?>
                     <tr>
                         <td><?= $exercise["title"]?></td>
@@ -60,7 +60,7 @@
 
                 <tbody>
                 <?php foreach ($exercises as $exercise) { 
-                    if (isset($exercise["status"]) && $exercise["status"] === "answering") {
+                    if (isset($exercise["status"]) && $exercise["status"] === 'answering') {
                         ?>
                     <tr>
                         <td><?= $exercise["title"]?></td>
