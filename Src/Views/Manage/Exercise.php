@@ -30,18 +30,20 @@
                 </thead>
 
                 <tbody>
-                <?php foreach ($exercises as $exercise) { ?>
+                <?php foreach ($exercises as $exercise) {
+                        if (isset($exercise["status"]) && $exercise["status"] === "building") {
+                    ?>
                     <tr>
                         <td><?= $exercise["title"]?></td>
                         <td>
                             <a title="Manage fields" href="/exercises/<?= $exercise["exercise_id"] ?>/fields"><i class="fa fa-edit"></i></a>
                             <a title="delete" href="#" onclick="if(confirm('Are you sure?')){document.getElementById('delete-form-<?= $exercise["exercise_id"] ?>').submit();} return false;"><i class="fa fa-trash"></i></a>
                             <form id="delete-form-<?= $exercise["exercise_id"] ?>" method="POST" action="/exercises/delete" style="display:none;">
-                                <input type="hidden" name="exercise_id" value="<?= $exercise["exercise_id"] ?>">
+                                <input type="hidden" name="exercise_id" value="<?= $exercise["exercise_id"]?>">
                             </form>
                         </td>
                     </tr>
-                <?php } ?>
+                <?php } } ?>
                 </tbody>
             </table>
         </section>
@@ -57,7 +59,9 @@
                 </thead>
 
                 <tbody>
-                <?php foreach ($exercises as $exercise) { ?>
+                <?php foreach ($exercises as $exercise) { 
+                    if (isset($exercise["status"]) && $exercise["status"] === "answering") {
+                        ?>
                     <tr>
                         <td><?= $exercise["title"]?></td>
                         <td>
@@ -68,7 +72,7 @@
                             <a title="Close" rel="nofollow" data-method="put" href="#"><i class="fa fa-minus-circle"></i></a>
                         </td>
                     </tr>
-                <?php } ?>
+                <?php } } ?>
                 </tbody>
             </table>
         </section>
@@ -84,7 +88,9 @@
                 </thead>
 
                 <tbody>
-                <?php foreach ($exercises as $exercise) { ?>
+                <?php foreach ($exercises as $exercise) { 
+                        if (isset($exercise["status"]) && $exercise["status"] === "closed") {                    
+                    ?>
                     <tr>
                         <td><?= $exercise["title"]?></td>
                         <td>
@@ -98,7 +104,7 @@
                             </form>
                         </td>
                     </tr>
-                <?php } ?>
+                <?php } } ?>
                 </tbody>
             </table>
         </section>
