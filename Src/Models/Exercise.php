@@ -58,12 +58,6 @@ class Exercise {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-        public function getStatus($id) {
-        $stmt = $this->pdo->prepare("SELECT status FROM `exercises` WHERE exercise_id = :id");
-        $stmt->execute(['id' => $id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
     public function delete($id)
     {
         $stmt = $this->pdo->prepare("DELETE FROM `exercises` WHERE exercise_id = :id");
