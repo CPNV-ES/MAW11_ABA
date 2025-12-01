@@ -30,7 +30,7 @@
         <tbody>
         <?php foreach ($answers as $date => $answerSet): ?>
             <tr>
-                <td><a href="#"><?= $date ?></a></td>
+                <td><a href="/exercises/<?= $data["id"]?>/results/<?= $data["fulfillment_id"]?>"><?= $date ?></a></td>
                 <?php foreach ($fields as $field): ?>
                     <?php
                     $fieldId = $field['field_id'];

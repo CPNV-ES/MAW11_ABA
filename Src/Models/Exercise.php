@@ -21,7 +21,8 @@ class Exercise {
             a.answer_text,
             ff.fulfillment_date,
             f.field_id,
-            f.exercise_id
+            f.exercise_id,
+            ff.fulfillment_id
         FROM answers a
         JOIN fields f ON a.field_id = f.field_id
         JOIN fulfillments ff ON ff.exercise_id = :exerciseId

@@ -36,6 +36,7 @@ class Navigate
         $answersGrouped = [];
         foreach ($answersRaw as $row) {
             $date = $row['fulfillment_date'];
+            $data['fulfillment_id'] = $row['fulfillment_id'];
             $fieldId = $row['field_id'] ?? null;
             if (!$fieldId) continue;
 
@@ -65,6 +66,10 @@ class Navigate
             'fields' => $fields,
             'data' => $data
         ]);
+    }
+    function showAnAnswer($exerciseId, $fieldId)
+    {
+        $this->renderer->render("Answers/One.php");
     }
 
 }

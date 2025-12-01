@@ -64,6 +64,18 @@ Class Dispatcher{
             }
             return;
         }
+        if (preg_match('#^/exercises/(\d+)/results/(\d+)$#', parse_url($uri, PHP_URL_PATH), $matches)) {
+            $exerciseId = $matches[1];
+            $fieldId = $matches[2];
+
+            require_once SRC_DIR . 'Controllers/Navigate.php';
+            $navigate = new Navigate();
+
+            if ($method == 'GET') {
+                $navigate->showAnAnswer($exerciseId, $fieldId);
+            }
+            return;
+        }
         if (preg_match('#^/exercises/(\d+)/results$#', parse_url($uri, PHP_URL_PATH), $matches)) {
             $exerciseId = $matches[1];
 
