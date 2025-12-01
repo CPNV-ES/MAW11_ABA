@@ -77,35 +77,33 @@ class Navigate
             'data' => $data
         ]);
     }
-    function showAnAnswer($exerciseId, $fulfillmentId)
+    public function showAnAnswer($exerciseId, $fulfillmentId)
     {
-        $id = $exerciseId;
-        $idfullfillment = $fulfillmentId;
-        $title = $this->exerciseModel->getTitle($exerciseId);
-        $date  = $this->exerciseModel->getDateOfExercise($fulfillmentId);
-        $idexercisetoverif = $this->exerciseModel->getIdOfExercise($fulfillmentId);
+        $titleData = $this->exerciseModel->getTitle($exerciseId);
+        $dateData  = $this->exerciseModel->getDateOfExercise($fulfillmentId);
+        $exerciseCheck = $this->exerciseModel->getIdOfExercise($fulfillmentId);
+
+        $title = $titleData['title'] ?? null;
+        $fulfillmentDate = $dateData['fulfillment_date'] ?? null;
+        $exerciseIdFromFulfillment = $exerciseCheck['exercise_id'] ?? null;
+
+        if (!$title || !$fulfillmentDate || $exerciseIdFromFulfillment != $exerciseId) {
+            $this->renderer->render("Errors/404.php");
+            return;
+        }
 
         $data = [
-            'id' => $id,
-            'idfullfillment' => $idfullfillment,
-            'title' => $title['title'] ?? null,
-            'fulfillment_date' => $date['fulfillment_date'] ?? null
+            'id' => $exerciseId,
+            'fulfillment_id' => $fulfillmentId,
+            'title' => $title,
+            'fulfillment_date' => $fulfillmentDate
         ];
 
         $answers = $this->exerciseModel->getAllAnswersByFulfillment($fulfillmentId);
 
-
-        if ($idexercisetoverif && isset($idexercisetoverif['exercise_id']) && $id == $idexercisetoverif['exercise_id']) {
-            if ($date != null) {
-                $this->renderer->render("Answers/One.php", [
-                    'answers' => $answers,
-                    'data' => $data,
-                ]);
-            } else {
-                $this->renderer->render("Errors/404.php");
-            }
-        } else {
-            $this->renderer->render("Errors/404.php");
-        }
+        $this->renderer->render("Answers/One.php", [
+            'answers' => $answers,
+            'data' => $data,
+        ]);
     }
 }

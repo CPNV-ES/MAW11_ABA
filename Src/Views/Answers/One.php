@@ -22,10 +22,8 @@
     <h1><?=$data["fulfillment_date"]?> UTC</h1>
     <dl class="answer">
         <?php foreach ($answers as $answer): ?>
-            <?php if ($answer['fulfillment_id'] = $data["idfullfillment"]): ?>
                 <dt><?=$answer["label"]?></dt>
                 <dd><?=$answer["answer_text"]?></dd>
-            <?php endif; ?>
         <?php endforeach; ?>
     </dl>
 </body>
