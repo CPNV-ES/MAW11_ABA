@@ -66,13 +66,13 @@ Class Dispatcher{
         }
         if (preg_match('#^/exercises/(\d+)/results/(\d+)$#', parse_url($uri, PHP_URL_PATH), $matches)) {
             $exerciseId = $matches[1];
-            $fieldId = $matches[2];
+            $fullfillmentId = $matches[2];
 
             require_once SRC_DIR . 'Controllers/Navigate.php';
             $navigate = new Navigate();
 
             if ($method == 'GET') {
-                $navigate->showAnAnswer($exerciseId, $fieldId);
+                $navigate->showAnAnswer($exerciseId,$fullfillmentId);
             }
             return;
         }

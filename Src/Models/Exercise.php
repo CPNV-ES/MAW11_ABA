@@ -19,6 +19,7 @@ class Exercise {
         SELECT 
             a.answer_id,
             a.answer_text,
+            f.label,
             ff.fulfillment_date,
             f.field_id,
             f.exercise_id,
@@ -27,11 +28,33 @@ class Exercise {
         JOIN fields f ON a.field_id = f.field_id
         JOIN fulfillments ff ON ff.exercise_id = :exerciseId
         WHERE f.exercise_id = :exerciseId
-        ORDER BY ff.fulfillment_date DESC
+        ORDER BY ff.fulfillment_date
     ";
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute(['exerciseId' => $exerciseId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getAllAnswersByFulfillment($fulfillmentId)
+    {
+        $sql = "
+            SELECT 
+                a.answer_id,
+                a.answer_text,
+                ff.fulfillment_date,
+                f.label,
+                f.field_id,
+                f.exercise_id,
+                ff.fulfillment_id
+            FROM answers a
+            JOIN fields f ON a.field_id = f.field_id
+            JOIN fulfillments ff ON a.fulfillment_id = :fulfillmentId
+            WHERE ff.fulfillment_id = :fulfillmentId
+            ORDER BY ff.fulfillment_date DESC
+        ";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['fulfillmentId' => $fulfillmentId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     public function getAllFieldsFromAnExercise($id)
@@ -53,6 +76,20 @@ class Exercise {
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getDateOfExercise($id) {
+        $stmt = $this->pdo->prepare("SELECT fulfillment_date FROM `fulfillments` WHERE fulfillment_id = :id");
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getIdOfExercise($id) {
+        $stmt = $this->pdo->prepare("SELECT exercise_id FROM `fulfillments` WHERE fulfillment_id = :id");
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+
 
     public function getById($id) {
         $stmt = $this->pdo->prepare("SELECT * FROM `exercises` WHERE exercise_id = :id");

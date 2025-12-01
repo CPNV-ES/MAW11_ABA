@@ -27,21 +27,31 @@ class Navigate
     }
     public function showAllAnswers($exerciseId)
     {
-
         $data = $this->exerciseModel->getTitle($exerciseId);
+
+        if (!is_array($data) || empty($data['title'])) {
+            $this->renderer->render("Errors/404.php");
+            return;
+        }
+
         $data['id'] = $exerciseId;
+
         $fields = $this->exerciseModel->getAllFieldsFromAnExercise($exerciseId);
         $answersRaw = $this->exerciseModel->getAllAnswersByExercise($exerciseId);
 
         $answersGrouped = [];
+
         foreach ($answersRaw as $row) {
-            $date = $row['fulfillment_date'];
-            $data['fulfillment_id'] = $row['fulfillment_id'];
+            $date = $row['fulfillment_date'] ?? null;
+            $fulfillmentId = $row['fulfillment_id'] ?? null;
             $fieldId = $row['field_id'] ?? null;
-            if (!$fieldId) continue;
+            if (!$date || !$fulfillmentId || !$fieldId) continue;
 
             if (!isset($answersGrouped[$date])) {
-                $answersGrouped[$date] = [];
+                $answersGrouped[$date] = [
+                    'fulfillment_id' => $fulfillmentId,
+                    'fields' => []
+                ];
             }
 
             $text = trim($row['answer_text'] ?? '');
@@ -55,7 +65,7 @@ class Navigate
                 $state = 'long';
             }
 
-            $answersGrouped[$date][$fieldId] = [
+            $answersGrouped[$date]['fields'][$fieldId] = [
                 'answer_text' => $text,
                 'state' => $state
             ];
@@ -67,9 +77,35 @@ class Navigate
             'data' => $data
         ]);
     }
-    function showAnAnswer($exerciseId, $fieldId)
+    function showAnAnswer($exerciseId, $fulfillmentId)
     {
-        $this->renderer->render("Answers/One.php");
-    }
+        $id = $exerciseId;
+        $idfullfillment = $fulfillmentId;
+        $title = $this->exerciseModel->getTitle($exerciseId);
+        $date  = $this->exerciseModel->getDateOfExercise($fulfillmentId);
+        $idexercisetoverif = $this->exerciseModel->getIdOfExercise($fulfillmentId);
 
+        $data = [
+            'id' => $id,
+            'idfullfillment' => $idfullfillment,
+            'title' => $title['title'] ?? null,
+            'fulfillment_date' => $date['fulfillment_date'] ?? null
+        ];
+
+        $answers = $this->exerciseModel->getAllAnswersByFulfillment($fulfillmentId);
+
+
+        if ($idexercisetoverif && isset($idexercisetoverif['exercise_id']) && $id == $idexercisetoverif['exercise_id']) {
+            if ($date != null) {
+                $this->renderer->render("Answers/One.php", [
+                    'answers' => $answers,
+                    'data' => $data,
+                ]);
+            } else {
+                $this->renderer->render("Errors/404.php");
+            }
+        } else {
+            $this->renderer->render("Errors/404.php");
+        }
+    }
 }
