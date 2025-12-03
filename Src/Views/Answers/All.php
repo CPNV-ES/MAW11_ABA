@@ -2,7 +2,9 @@
     <section class="container">
         <a href="/"><img src="/assets/logo-84d7d70645fbe179ce04c983a5fae1e6cba523d7cd28e0cd49a04707ccbef56e.png" /></a>
         <?php if (!empty($data['title'])): ?>
-            <span class="exercise-label">Exercise: <?= htmlspecialchars($data['title']) ?></span>
+            <span class="exercise-label">
+                Exercise: <a href="/exercises/<?= $data["id"]?>/results/"><?= htmlspecialchars($data['title']) ?></a>
+            </span>
         <?php endif; ?>
     </section>
 </header>
@@ -12,6 +14,7 @@
     <html>
     <head>
         <title>ExerciseLooper</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <meta name="csrf-param" content="authenticity_token" />
         <meta name="csrf-token" content="BXsG3Y5pcBftAp2Cra3Q6bQm828bQsdKutU1Pxa1PPSV3nsf8/34NTbrwbUyvOgQI74jNFBr4h4lCu4xOngsfA==" />
         <link rel="stylesheet" media="all" href="/css/home.css" />
@@ -28,36 +31,37 @@
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($answers as $date => $answerSet): ?>
+        <?php foreach ($answers as $fulfillmentId => $answerSet): ?>
             <tr>
-                <td><a href="#"><?= $date ?></a></td>
+                <td>
+                    <a href="/exercises/<?= $data["id"] ?>/results/<?= $fulfillmentId ?>">
+                        <?= $answerSet['date'] ?> UTC
+                    </a>
+                </td>
+
                 <?php foreach ($fields as $field): ?>
                     <?php
                     $fieldId = $field['field_id'];
-                    $state = $answerSet[$fieldId]['state'] ?? 'empty';
+                    $state = $answerSet['fields'][$fieldId]['state'] ?? 'empty';
 
                     if ($state === 'short') {
-                        $image = '/img/trick.png';
+                        $icon = '<i class="fa fa-check short"></i>';
                         $tooltip = 'Réponse courte';
                     } elseif ($state === 'long') {
-                        $image = '/img/doubletrick.png';
+                        $icon = '<i class="fa fa-check-double filled"></i>';
                         $tooltip = 'Réponse longue';
                     } else {
-                        $image = '/img/cross.png';
+                        $icon = '<i class="fa fa-times empty"></i>';
                         $tooltip = 'Aucune réponse';
                     }
                     ?>
-                    <td title="<?= htmlspecialchars($tooltip) ?>">
-                        <img class="imgstate" src="<?= htmlspecialchars($image) ?>"
-                             alt="<?= htmlspecialchars($tooltip) ?>"
-                             class="answer-icon">
-                    </td>
+                    <td title="<?= htmlspecialchars($tooltip) ?>"><?= $icon ?></td>
                 <?php endforeach; ?>
+
             </tr>
         <?php endforeach; ?>
         </tbody>
     </table>
-
     </body>
     </html>
 </main>
