@@ -31,18 +31,18 @@
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($answers as $date => $answerSet): ?>
+        <?php foreach ($answers as $fulfillmentId => $answerSet): ?>
             <tr>
                 <td>
-                    <a href="/exercises/<?= $data["id"]?>/results/<?= $answerSet['fulfillment_id'] ?>">
-                        <?= $date ?> UTC
+                    <a href="/exercises/<?= $data["id"] ?>/results/<?= $fulfillmentId ?>">
+                        <?= $answerSet['date'] ?> UTC
                     </a>
                 </td>
+
                 <?php foreach ($fields as $field): ?>
                     <?php
                     $fieldId = $field['field_id'];
                     $state = $answerSet['fields'][$fieldId]['state'] ?? 'empty';
-                    $tooltip = '';
 
                     if ($state === 'short') {
                         $icon = '<i class="fa fa-check short"></i>';
@@ -55,10 +55,9 @@
                         $tooltip = 'Aucune réponse';
                     }
                     ?>
-                    <td title="<?= htmlspecialchars($tooltip) ?>">
-                        <?= $icon ?>
-                    </td>
+                    <td title="<?= htmlspecialchars($tooltip) ?>"><?= $icon ?></td>
                 <?php endforeach; ?>
+
             </tr>
         <?php endforeach; ?>
         </tbody>

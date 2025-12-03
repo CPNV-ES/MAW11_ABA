@@ -45,27 +45,26 @@ class Navigate
             $date = $row['fulfillment_date'] ?? null;
             $fulfillmentId = $row['fulfillment_id'] ?? null;
             $fieldId = $row['field_id'] ?? null;
+
             if (!$date || !$fulfillmentId || !$fieldId) continue;
 
-            if (!isset($answersGrouped[$date])) {
-                $answersGrouped[$date] = [
-                    'fulfillment_id' => $fulfillmentId,
+            if (!isset($answersGrouped[$fulfillmentId])) {
+                $answersGrouped[$fulfillmentId] = [
+                    'date' => $date,
                     'fields' => []
                 ];
             }
 
             $text = trim($row['answer_text'] ?? '');
-            $length = strlen($text);
-
-            if ($length === 0) {
+            if ($text === '') {
                 $state = 'empty';
-            } elseif ($length <= 20) {
+            } elseif (strlen($text) <= 20) {
                 $state = 'short';
             } else {
                 $state = 'long';
             }
 
-            $answersGrouped[$date]['fields'][$fieldId] = [
+            $answersGrouped[$fulfillmentId]['fields'][$fieldId] = [
                 'answer_text' => $text,
                 'state' => $state
             ];

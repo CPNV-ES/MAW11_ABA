@@ -16,7 +16,7 @@ class Exercise {
     public function getAllAnswersByExercise($exerciseId)
     {
         $sql = "
-        SELECT 
+        SELECT
             a.answer_id,
             a.answer_text,
             f.label,
@@ -26,9 +26,9 @@ class Exercise {
             ff.fulfillment_id
         FROM answers a
         JOIN fields f ON a.field_id = f.field_id
-        JOIN fulfillments ff ON ff.exercise_id = :exerciseId
+        JOIN fulfillments ff ON a.fulfillment_id = ff.fulfillment_id
         WHERE f.exercise_id = :exerciseId
-        ORDER BY ff.fulfillment_date
+        ORDER BY ff.fulfillment_date ASC, f.field_id ASC;
     ";
 
         $stmt = $this->pdo->prepare($sql);
