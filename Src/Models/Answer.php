@@ -9,18 +9,28 @@ class Answer {
         $this->pdo = $db->getConnection();
     }
 
-    function insert($field_id){
-        $stmt = $this->pdo->prepare("INSERT INTO answers (field_id,answer_text,answer_date) VALUES (:field_id,:answer_text,:answer_date)");
+    function createFulfillment($exercise_id) {
+        $stmt = $this->pdo->prepare("INSERT INTO fulfillments (exercise_id, fulfillment_date) VALUES (:exercise_id, :fulfillment_date)");
         $stmt->execute([
-            'field_id' => $field_id,
-            'answer_text' => null,
-            'answer_date' => date("Y-m-d H:i:s")
+            'exercise_id' => $exercise_id,
+            'fulfillment_date' => date("Y-m-d H:i:s")
         ]);
 
         return $this->pdo->lastInsertId();
     }
 
-    function updateById($answer, $answer_id){ 
+    function insert($fulfillment_id, $field_id){
+        $stmt = $this->pdo->prepare("INSERT INTO answers (fulfillment_id, field_id, answer_text) VALUES (:fulfillment_id, :field_id, :answer_text)");
+        $stmt->execute([
+            'fulfillment_id' => $fulfillment_id,
+            'field_id' => $field_id,
+            'answer_text' => null
+        ]);
+
+        return $this->pdo->lastInsertId();
+    }
+
+    function updateById($answer, $answer_id){
         $stmt = $this->pdo->prepare("UPDATE answers SET answer_text = :answer_text WHERE answer_id = :answer_id");
         $stmt->execute([
             'answer_text' => $answer,
@@ -29,5 +39,3 @@ class Answer {
     }
 
 }
-
-?>
