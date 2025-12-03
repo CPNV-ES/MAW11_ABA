@@ -27,6 +27,10 @@ class Exercises
             $data['title_error'] = "Le titre est requis";
         }
 
+        if (strlen($title) > 75) {
+            $data['title_error'] = "le titre ne peut pas être plus long que 75 caracteres";
+        }
+
         if (empty($data)) {
             $id = $this->exerciseModel->create($title);
 
