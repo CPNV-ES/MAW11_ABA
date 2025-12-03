@@ -57,7 +57,6 @@
                     ?>
                     <td title="<?= htmlspecialchars($tooltip) ?>"><?= $icon ?></td>
                 <?php endforeach; ?>
-
             </tr>
         <?php endforeach; ?>
         </tbody>
