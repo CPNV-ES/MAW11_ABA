@@ -5,7 +5,6 @@ class Database {
     private $user;
     private $pass ;
     private $charset;
-
     private $pdo;
 
     public function __construct() {
