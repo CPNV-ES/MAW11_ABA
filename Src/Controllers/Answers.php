@@ -27,7 +27,7 @@ class Answers
         $exercise = $this->exerciseModel->getById($exerciseId);
 
         if (!$exercise) {
-            header('Location: /exercises/answering');
+            header('Location: /Errors/404');
             exit;
         }
 

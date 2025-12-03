@@ -25,40 +25,46 @@ class Navigate
         $exercises = $this->exerciseModel->getAll();
         $this->renderer->render("Manage/Exercise.php", ['exercises' => $exercises]);
     }
-    public function showAllAnswers()
+    public function showAllAnswers($exerciseId)
     {
-        $id = $_POST['exercise_id'] ?? null;
+        $data = $this->exerciseModel->getTitle($exerciseId);
 
-        $data = $this->exerciseModel->getTitle($id);
-        $data['id'] = $id;
-        $fields = $this->exerciseModel->getAllFieldsFromAnExercise($id);
-        $answersRaw = $this->exerciseModel->getAllAnswersByExercise($id);
+        if (!is_array($data) || empty($data['title'])) {
+            $this->renderer->render("Errors/404.php");
+            return;
+        }
+
+        $data['id'] = $exerciseId;
+
+        $fields = $this->exerciseModel->getAllFieldsFromAnExercise($exerciseId);
+        $answersRaw = $this->exerciseModel->getAllAnswersByExercise($exerciseId);
 
         $answersGrouped = [];
+
         foreach ($answersRaw as $row) {
-            $fulfillmentId = $row['fulfillment_id'];
+            $date = $row['fulfillment_date'] ?? null;
+            $fulfillmentId = $row['fulfillment_id'] ?? null;
             $fieldId = $row['field_id'] ?? null;
-            if (!$fieldId) continue;
+
+            if (!$date || !$fulfillmentId || !$fieldId) continue;
 
             if (!isset($answersGrouped[$fulfillmentId])) {
                 $answersGrouped[$fulfillmentId] = [
-                    'fulfillment_date' => $row['fulfillment_date'],
-                    'answers' => []
+                    'date' => $date,
+                    'fields' => []
                 ];
             }
 
             $text = trim($row['answer_text'] ?? '');
-            $length = strlen($text);
-
-            if ($length === 0) {
+            if ($text === '') {
                 $state = 'empty';
-            } elseif ($length <= 20) {
+            } elseif (strlen($text) <= 20) {
                 $state = 'short';
             } else {
                 $state = 'long';
             }
 
-            $answersGrouped[$fulfillmentId]['answers'][$fieldId] = [
+            $answersGrouped[$fulfillmentId]['fields'][$fieldId] = [
                 'answer_text' => $text,
                 'state' => $state
             ];
@@ -70,5 +76,33 @@ class Navigate
             'data' => $data
         ]);
     }
+    public function showAnAnswer($exerciseId, $fulfillmentId)
+    {
+        $titleData = $this->exerciseModel->getTitle($exerciseId);
+        $dateData  = $this->exerciseModel->getDateOfExercise($fulfillmentId);
+        $exerciseCheck = $this->exerciseModel->getIdOfExercise($fulfillmentId);
 
+        $title = $titleData['title'] ?? null;
+        $fulfillmentDate = $dateData['fulfillment_date'] ?? null;
+        $exerciseIdFromFulfillment = $exerciseCheck['exercise_id'] ?? null;
+
+        if (!$title || !$fulfillmentDate || $exerciseIdFromFulfillment != $exerciseId) {
+            $this->renderer->render("Errors/404.php");
+            return;
+        }
+
+        $data = [
+            'id' => $exerciseId,
+            'fulfillment_id' => $fulfillmentId,
+            'title' => $title,
+            'fulfillment_date' => $fulfillmentDate
+        ];
+
+        $answers = $this->exerciseModel->getAllAnswersByFulfillment($fulfillmentId);
+
+        $this->renderer->render("Answers/One.php", [
+            'answers' => $answers,
+            'data' => $data,
+        ]);
+    }
 }

@@ -5337,7 +5337,12 @@ textarea {
   -webkit-appearance: button; /* 1 */
   font: inherit; /* 2 */
 }
-
+.fa-check.short, .fa-check-double.filled {
+    color: green;
+}
+.fa-times.empty {
+    color: red;
+}
 /* Interactive
    ========================================================================== */
 

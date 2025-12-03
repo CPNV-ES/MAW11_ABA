@@ -48,6 +48,7 @@ Class Dispatcher{
             if ($method == 'POST') {
                 $answerController->save();
             }
+            return;
         }
 
         if (preg_match('#^/exercises/(\d+)/?$#', parse_url($uri, PHP_URL_PATH), $matches)) {
@@ -63,7 +64,29 @@ Class Dispatcher{
             }
             return;
         }
+        if (preg_match('#^/exercises/(\d+)/results/(\d+)$#', parse_url($uri, PHP_URL_PATH), $matches)) {
+            $exerciseId = $matches[1];
+            $fullfillmentId = $matches[2];
 
+            require_once SRC_DIR . 'Controllers/Navigate.php';
+            $navigate = new Navigate();
+
+            if ($method == 'GET') {
+                $navigate->showAnAnswer($exerciseId,$fullfillmentId);
+            }
+            return;
+        }
+        if (preg_match('#^/exercises/(\d+)/results$#', parse_url($uri, PHP_URL_PATH), $matches)) {
+            $exerciseId = $matches[1];
+
+            require_once SRC_DIR . 'Controllers/Navigate.php';
+            $navigate = new Navigate();
+
+            if ($method == 'GET') {
+                $navigate->showAllAnswers($exerciseId);
+            }
+            return;
+        }
         switch ($uri) {
             case '/':
                 $renderer = new Renderer();
@@ -106,15 +129,10 @@ Class Dispatcher{
                     $exerciseController->delete();
                 }
                 break;
-
-            case '/exercises/allAnswers':
-                require_once SRC_DIR . 'Controllers/Navigate.php';
-                $navigate = new Navigate();
-                $navigate->showAllAnswers();
-                break;
             default:
-                header('HTTP/1.0 404 Not Found');
-                break;
+                http_response_code(404);
+                require_once __DIR__ . '/Views/Errors/404.php';
+                exit;
         }
     }
 }
