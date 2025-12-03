@@ -24,7 +24,7 @@ class Fields
     {
         $exercise = $this->exerciseModel->getById($exerciseId);
 
-        if (!$exercise) {
+        if (!$exercise || $exercise['status'] == "closed") {
             header('Location: /Errors/404');
             exit;
         }
