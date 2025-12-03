@@ -20,15 +20,15 @@
 
     <body>
     <ul class="ansering-list">
-        <!-- ** refaire au propre ** -->
         <?php foreach ($exercises as $exercise) { ?>
+                <?php if($exercise['status'] === "answering") { ?>
             <li class="row">
                 <div class="column card">
                     <div class="title"><?= $exercise["title"]?></div>
                     <a class="button" href="/exercises/<?= $exercise["exercise_id"] ?>/fulfillments/new">Take it</a>
                 </div>
             </li>
-        <?php } ?>
+        <?php } } ?>
     </ul>
     </body>
     </html>

@@ -3,7 +3,11 @@ require_once SRC_DIR . "Renderer.php";
 
 Class Dispatcher{
 
-    function __construct(){}
+    private $renderer;
+
+    function __construct(){
+        $this->renderer = new Renderer();
+    }
 
     function dispatch(){
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -58,7 +62,10 @@ Class Dispatcher{
 
             require_once SRC_DIR . 'Controllers/Exercises.php';
             $exerciseController = new Exercises();
-
+            if (!$status) {
+                $this->renderer->render("Errors/404.php");
+                return;
+            }
             if ($method == 'GET' && $status == 'answering') {
                 $exerciseController->setStatusToAnswering($exerciseId);
             }
@@ -118,7 +125,7 @@ Class Dispatcher{
             case '/exercises':
                 require_once SRC_DIR . 'Controllers/Navigate.php';
                 $navigate = new Navigate();
-                $navigate->showTakeExercises();
+                $navigate->showManageExercises();
                 break;
 
             case '/exercises/delete':

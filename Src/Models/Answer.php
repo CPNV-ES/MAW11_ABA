@@ -10,6 +10,7 @@ class Answer {
     }
 
     function createFulfillment($exercise_id) {
+        date_default_timezone_set('Europe/Zurich');
         $stmt = $this->pdo->prepare("INSERT INTO fulfillments (exercise_id, fulfillment_date) VALUES (:exercise_id, :fulfillment_date)");
         $stmt->execute([
             'exercise_id' => $exercise_id,
@@ -20,6 +21,7 @@ class Answer {
     }
 
     function insert($fulfillment_id, $field_id){
+        date_default_timezone_set('Europe/Zurich');
         $stmt = $this->pdo->prepare("INSERT INTO answers (fulfillment_id, field_id, answer_text) VALUES (:fulfillment_id, :field_id, :answer_text)");
         $stmt->execute([
             'fulfillment_id' => $fulfillment_id,
