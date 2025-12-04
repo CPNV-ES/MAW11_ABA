@@ -26,7 +26,6 @@ CREATE TABLE fields (
     exercise_id INT NOT NULL,
     label VARCHAR(255) NOT NULL,
     value_kind ENUM('single_line', 'single_line_list', 'multi_line') DEFAULT 'single_line',
-    position INT DEFAULT 0,
     FOREIGN KEY (exercise_id) REFERENCES exercises(exercise_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
@@ -69,10 +68,10 @@ INSERT INTO exercises (title, status) VALUES
 ('Introduction to PHP', 'building'),
 ('Database Design', 'building');
 
-INSERT INTO fields (exercise_id, label, value_kind, position) VALUES 
-(1, 'Your Name', 'single_line', 1),
-(1, 'Favorite Programming Languages', 'single_line_list', 2),
-(1, 'Why do you want to learn PHP?', 'multi_line', 3);
+INSERT INTO fields (exercise_id, label, value_kind) VALUES 
+(1, 'Your Name', 'single_line'),
+(1, 'Favorite Programming Languages', 'single_line_list'),
+(1, 'Why do you want to learn PHP?', 'multi_line');
 
 -- Sample fulfillment
 INSERT INTO fulfillments (exercise_id) VALUES (1);
