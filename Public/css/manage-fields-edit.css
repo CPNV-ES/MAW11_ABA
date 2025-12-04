@@ -5483,6 +5483,35 @@ div.actions {
 label {
     display: block;
 }
+
+.help-block {
+    color: #a94442;
+    font-size: 0.9em;
+    margin-top: 5px;
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group input,
+.form-group select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-group.has-error input,
+.form-group.has-error select {
+    border-color: #a94442;
+    border-width: 2px;
+}
+
+.form-group.has-error label {
+    color: #a94442;
+}
+
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
@@ -5551,4 +5580,30 @@ header.results {
 
 table.records td:last-child {
     text-align: right;
+}
+
+table.records {
+    table-layout: fixed;
+    width: 100%;
+}
+
+table.records td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 0;
+}
+
+table.records td:hover {
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+table.records td:last-child {
+    width: 80px;
+    white-space: nowrap;
+}
+
+table.records td:nth-child(2) {
+    width: 200px;
 }
