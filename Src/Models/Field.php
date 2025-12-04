@@ -21,20 +21,26 @@ class Field {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function create($exerciseId, $label, $valueKind)
+    {
+        $stmt = $this->pdo->prepare("INSERT INTO `fields` (exercise_id, label, value_kind) VALUES (:exercise_id, :label, :value_kind)");
+        $stmt->execute([
+            'exercise_id' => $exerciseId,
+            'label' => $label,
+            'value_kind' => $valueKind
+        ]);
+        return $this->pdo->lastInsertId();
+    }
+
     public function update($id, $label, $valueKind)
     {
-        try {
-            $stmt = $this->pdo->prepare("UPDATE `fields` SET label = :label, value_kind = :value_kind WHERE field_id = :id");
-            $stmt->execute([
-                'id' => $id,
-                'label' => $label,
-                'value_kind' => $valueKind
-            ]);
-            return $stmt->rowCount() > 0;
-        } catch (PDOException $e) {
-            error_log("Error updating field: " . $e->getMessage());
-            return false;
-        }
+        $stmt = $this->pdo->prepare("UPDATE `fields` SET label = :label, value_kind = :value_kind WHERE field_id = :id");
+        $stmt->execute([
+            'id' => $id,
+            'label' => $label,
+            'value_kind' => $valueKind
+        ]);
+        return $stmt->rowCount() > 0;
     }
 
 }
