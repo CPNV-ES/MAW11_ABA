@@ -100,11 +100,11 @@ Class Dispatcher{
             $exerciseId = $matches[1];
             $fieldId = $matches[2];
 
-            require_once SRC_DIR . 'Controllers/Answers.php';
-            $answer = new Answers();
+            require_once SRC_DIR . 'Controllers/Fields.php';
+            $fieldController = new Fields();
 
             if ($method == 'GET') {
-                $answer->showAllAnswersFromAQuestion($exerciseId,$fieldId);
+                $fieldController->showAllAnswersFromAQuestion($exerciseId,$fieldId);
             }
             return;
         }

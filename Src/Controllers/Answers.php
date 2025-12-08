@@ -62,7 +62,4 @@ class Answers
         header('Location: /exercises/answering');
         exit;
     }
-    public function showAllAnswersFromAQuestion($exerciseId,$fieldId){
-
-    }
 }
