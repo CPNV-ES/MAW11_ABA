@@ -113,11 +113,15 @@ class Fields
 
         $data = $this->exerciseModel->getTitle($exerciseId);
 
-        $fields = $this->fieldModel = $this->fieldModel->showAllAnswersFromAQuestion($exerciseId,$fieldId);
+        $data += $this->fieldModel->getLabel($fieldId);
+
+        $data['id'] = $exerciseId;
+
+        $fields = $this->fieldModel->showAllAnswersFromAQuestion($exerciseId,$fieldId);
 
         $this->renderer->render("Answers/AllFromAQuestion.php", [
             'fields' => $fields,
-            'data' => $data
+            'data' => $data,
         ]);
     }
 }

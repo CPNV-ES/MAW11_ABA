@@ -46,6 +46,7 @@ class Field {
         $stmt = $this->pdo->prepare("
         SELECT 
             a.answer_id,
+            fld.exercise_id,
             a.answer_text,
             f.fulfillment_id,
             f.fulfillment_date
@@ -64,5 +65,10 @@ class Field {
         ]);
 
         return $stmt->fetchAll();
+    }
+    public function getLabel($id) {
+        $stmt = $this->pdo->prepare("SELECT label FROM `fields` WHERE field_id = :id");
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }

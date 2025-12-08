@@ -1,12 +1,11 @@
-
 <header class="heading results">
     <section class="container">
         <a href="/"><img src="/assets/logo-84d7d70645fbe179ce04c983a5fae1e6cba523d7cd28e0cd49a04707ccbef56e.png" /></a>
-        <?php if (!empty($data['title'])): ?>
+
             <span class="exercise-label">
                 Exercise: <a href="/exercises/<?= $data["id"]?>/results/"><?= htmlspecialchars($data['title']) ?></a>
             </span>
-        <?php endif; ?>
+
     </section>
 </header>
 
@@ -21,8 +20,7 @@
     </head>
 
     <body>
-    <h1>cos(30)</h1>
-
+        <h1><?= $data["label"] ?></h1>
     <table>
         <thead>
         <tr>
@@ -32,10 +30,12 @@
         </thead>
 
         <tbody>
+        <?php foreach ($fields as $field): ?>
         <tr>
-            <td><a href="/exercises/532/fulfillments/567">2025-11-29 12:23:47 UTC</a></td>
-            <td>1/2</td>
+            <td><a href="/exercises/<?= $field["exercise_id"] ?>/fulfillments/<?= $field['fulfillment_id'] ?>"><?= $field['fulfillment_date'] ?> UTC</a></td>
+            <td><?= $field["answer_text"] ?></td>
         </tr>
+        <?php endforeach; ?>
         </tbody>
     </table>
 
