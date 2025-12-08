@@ -21,6 +21,8 @@ Class Dispatcher{
 
             if ($method == 'GET') {
                 $fieldController->manageFields($exerciseId);
+            } else if ($method == 'POST') {
+                $fieldController->createField($exerciseId);
             }
 
             return;

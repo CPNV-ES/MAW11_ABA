@@ -20,7 +20,7 @@ class Fields
         $this->renderer = new Renderer();
     }
 
-    public function manageFields($exerciseId)
+    public function manageFields($exerciseId, $errors = [], $oldInput = [])
     {
         $exercise = $this->exerciseModel->getById($exerciseId);
 
@@ -33,7 +33,9 @@ class Fields
 
         $data = [
             'exercise' => $exercise,
-            'fields' => $fields
+            'fields' => $fields,
+            'errors' => $errors,
+            'old' => $oldInput
         ];
 
         $this->renderer->render('Manage/ExerciseFields.php', $data);
@@ -68,6 +70,41 @@ class Fields
         }
 
         $this->fieldModel->update($fieldId, $label, $valueKind);
+
+        header("Location: /exercises/$exerciseId/fields");
+        exit;
+    }
+
+    public function createField($exerciseId)
+    {
+        $exercise = $this->exerciseModel->getById($exerciseId);
+
+        if (!$exercise) {
+            header('Location: /Errors/404');
+            exit;
+        }
+
+        $label = trim($_POST['field']['label'] ?? '');
+        $valueKind = $_POST['field']['value_kind'] ?? 'single_line';
+
+        $errors = [];
+
+        if (empty($label)) {
+            $errors['label'] = 'Le label est obligatoire.';
+        } elseif (strlen($label) > 255) {
+            $errors['label'] = 'Le label ne peut pas dépasser 255 caractères.';
+        }
+
+        if (!empty($errors)) {
+            $oldInput = [
+                'label' => $label,
+                'value_kind' => $valueKind
+            ];
+            $this->manageFields($exerciseId, $errors, $oldInput);
+            return;
+        }
+
+        $this->fieldModel->create($exerciseId, $label, $valueKind);
 
         header("Location: /exercises/$exerciseId/fields");
         exit;

@@ -57,16 +57,24 @@
             <h1>New Field</h1>
             <form action="/exercises/<?= $exercise['exercise_id'] ?>/fields" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="Uc+qZWAtqmOJ3t9OZ7hZWX8YvRAHPCIX8DizYACNR4wRWk+H2wUN/CVObUYNzqMwJBO6njHCTfWvv3na+WvC7w==" />
 
-                <div class="field">
+                <div class="form-group <?= !empty($errors['label']) ? 'has-error' : '' ?>">
                     <label for="field_label">Label</label>
-                    <input type="text" name="field[label]" id="field_label" />
+                    <input type="text" name="field[label]" id="field_label" value="<?= htmlspecialchars($old['label'] ?? '') ?>" required />
+                    <?php if (!empty($errors['label'])): ?>
+                        <span class="help-block"><?= htmlspecialchars($errors['label']) ?></span>
+                    <?php endif; ?>
                 </div>
 
-                <div class="field">
+                <div class="form-group <?= !empty($errors['value_kind']) ? 'has-error' : '' ?>">
                     <label for="field_value_kind">Value kind</label>
-                    <select name="field[value_kind]" id="field_value_kind"><option selected="selected" value="single_line">Single line text</option>
-                        <option value="single_line_list">List of single lines</option>
-                        <option value="multi_line">Multi-line text</option></select>
+                    <select name="field[value_kind]" id="field_value_kind">
+                        <option <?= (!isset($old['value_kind']) || $old['value_kind'] === 'single_line') ? 'selected="selected"' : '' ?> value="single_line">Single line text</option>
+                        <option <?= (isset($old['value_kind']) && $old['value_kind'] === 'single_line_list') ? 'selected="selected"' : '' ?> value="single_line_list">List of single lines</option>
+                        <option <?= (isset($old['value_kind']) && $old['value_kind'] === 'multi_line') ? 'selected="selected"' : '' ?> value="multi_line">Multi-line text</option>
+                    </select>
+                    <?php if (!empty($errors['value_kind'])): ?>
+                        <span class="help-block"><?= htmlspecialchars($errors['value_kind']) ?></span>
+                    <?php endif; ?>
                 </div>
 
                 <div class="actions">
