@@ -26,7 +26,7 @@
         <tr>
             <th>Take</th>
             <?php foreach ($fields as $field): ?>
-                <th><a href="#"><?= htmlspecialchars($field["label"]) ?></a></th>
+                <th><a href="/exercises/<?= $data["id"] ?>/results/<?= $field["field_id"] ?>"><?= htmlspecialchars($field["label"]) ?></a></th>
             <?php endforeach; ?>
         </tr>
         </thead>
@@ -34,7 +34,7 @@
         <?php foreach ($answers as $fulfillmentId => $answerSet): ?>
             <tr>
                 <td>
-                    <a href="/exercises/<?= $data["id"] ?>/results/<?= $fulfillmentId ?>">
+                    <a href="/exercises/<?= $data["id"] ?>/fulfillments/<?= $fulfillmentId ?>">
                         <?= $answerSet['date'] ?> UTC
                     </a>
                 </td>

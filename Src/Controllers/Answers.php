@@ -59,8 +59,10 @@ class Answers
                 $this->answerModel->updateById($answers[$index], $answerId);
             }
         }
-
         header('Location: /exercises/answering');
         exit;
+    }
+    public function showAllAnswersFromAQuestion($exerciseId,$fieldId){
+
     }
 }
