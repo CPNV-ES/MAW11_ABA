@@ -73,7 +73,7 @@ Class Dispatcher{
             }
             return;
         }
-        if (preg_match('#^/exercises/(\d+)/results/(\d+)$#', parse_url($uri, PHP_URL_PATH), $matches)) {
+        if (preg_match('#^/exercises/(\d+)/fulfillments/(\d+)$#', parse_url($uri, PHP_URL_PATH), $matches)) {
             $exerciseId = $matches[1];
             $fullfillmentId = $matches[2];
 
@@ -93,6 +93,18 @@ Class Dispatcher{
 
             if ($method == 'GET') {
                 $navigate->showAllAnswers($exerciseId);
+            }
+            return;
+        }
+        if (preg_match('#^/exercises/(\d+)/results/(\d+)$#', parse_url($uri, PHP_URL_PATH), $matches)) {
+            $exerciseId = $matches[1];
+            $fieldId = $matches[2];
+
+            require_once SRC_DIR . 'Controllers/Fields.php';
+            $fieldController = new Fields();
+
+            if ($method == 'GET') {
+                $fieldController->showAllAnswersFromAQuestion($exerciseId,$fieldId);
             }
             return;
         }

@@ -42,5 +42,33 @@ class Field {
         ]);
         return $stmt->rowCount() > 0;
     }
+    public function showAllAnswersFromAQuestion($exerciseId, $fieldId) {
+        $stmt = $this->pdo->prepare("
+        SELECT 
+            a.answer_id,
+            fld.exercise_id,
+            a.answer_text,
+            f.fulfillment_id,
+            f.fulfillment_date
+        FROM fields AS fld
+        JOIN answers AS a
+            ON fld.field_id = a.field_id
+        JOIN fulfillments AS f
+            ON a.fulfillment_id = f.fulfillment_id
+        WHERE fld.field_id = :fieldId
+          AND fld.exercise_id = :exerciseId
+        ORDER BY a.answer_id ASC, f.fulfillment_date ASC
+    ");
+        $stmt->execute([
+            'fieldId'    => $fieldId,
+            'exerciseId' => $exerciseId
+        ]);
 
+        return $stmt->fetchAll();
+    }
+    public function getLabel($id) {
+        $stmt = $this->pdo->prepare("SELECT label FROM `fields` WHERE field_id = :id");
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
