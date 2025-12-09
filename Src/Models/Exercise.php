@@ -110,5 +110,10 @@ class Exercise {
         $stmt->execute(['id' => $id]);
         return $stmt->rowCount() > 0;
     }
-
+    public function setStatusToClosed($id)
+    {
+        $stmt = $this->pdo->prepare("UPDATE `exercises` SET status = 'closed' WHERE exercise_id = :id AND status = 'answering'");
+        $stmt->execute(['id' => $id]);
+        return $stmt->rowCount() > 0;
+    }
 }

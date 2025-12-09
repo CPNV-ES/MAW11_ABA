@@ -67,5 +67,11 @@ class Exercises
         }
 
     }
+    public function setStatusToClosed() {
+            
+            $id = $_POST['exercise_id'] ?? null;
 
+            $this->exerciseModel->setStatusToClosed($id);
+            header('Location: /exercises/');
+    }
 }

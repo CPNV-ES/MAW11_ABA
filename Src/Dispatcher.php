@@ -150,6 +150,14 @@ Class Dispatcher{
                     $exerciseController->delete();
                 }
                 break;
+            case '/exercises/close':
+                require_once SRC_DIR . 'Controllers/Exercises.php';
+                $exerciseController = new Exercises();
+
+                if ($method == 'POST') {
+                    $exerciseController->setStatusToClosed();
+                }
+                break;
             default:
                 http_response_code(404);
                 require_once __DIR__ . '/Views/Errors/404.php';

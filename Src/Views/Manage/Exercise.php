@@ -66,7 +66,10 @@
                         <td><?= $exercise["title"]?></td>
                         <td>
                             <a title="Show results" href="/exercises/<?= $exercise["exercise_id"] ?>/results"><i class="fa fa-chart-bar"></i></a>
-                            <a title="Close" rel="nofollow" data-method="put" href="#"><i class="fa fa-minus-circle"></i></a>
+                            <a title="close" rel="nofollow" data-method="put" href="#" onclick="if(confirm('Are you sure?')){document.getElementById('close-form-<?= $exercise["exercise_id"] ?>').submit();} return false;"><i class="fa fa-minus-circle"></i></a>
+                            <form id="close-form-<?= $exercise["exercise_id"] ?>" method="POST" action="/exercises/close" style="display:none;">
+                                <input type="hidden" name="exercise_id" value="<?= $exercise["exercise_id"]?>">
+                            </form>
                         </td>
                     </tr>
                 <?php } } ?>
