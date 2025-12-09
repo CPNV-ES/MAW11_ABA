@@ -20,6 +20,11 @@ class Field {
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    public function IsField($id){
+        $stmt = $this->pdo->prepare("SELECT * FROM `fields` WHERE fields.exercise_id = :id");
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
     public function create($exerciseId, $label, $valueKind)
     {
