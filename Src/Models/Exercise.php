@@ -11,7 +11,7 @@ class Exercise {
 
     public function getAll() {
         $stmt = $this->pdo->query("SELECT exercise_id, title, status FROM `exercises`");
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     public function getAllAnswersByExercise($exerciseId)
     {

@@ -20,12 +20,17 @@ class Field {
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-    public function IsField($id){
-        $stmt = $this->pdo->prepare("SELECT * FROM `fields` WHERE fields.exercise_id = :id");
-        $stmt->execute(['id' => $id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
+    public function getAll()
+    {
+        $stmt = $this->pdo->prepare("
+        SELECT f.exercise_id
+        FROM fields f
+        GROUP BY f.exercise_id
+    ");
+        $stmt->execute();
 
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     public function create($exerciseId, $label, $valueKind)
     {
         $stmt = $this->pdo->prepare("INSERT INTO `fields` (exercise_id, label, value_kind) VALUES (:exercise_id, :label, :value_kind)");

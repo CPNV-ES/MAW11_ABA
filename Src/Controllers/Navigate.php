@@ -28,15 +28,21 @@ class Navigate
     {
         $exercises = $this->exerciseModel->getAll();
 
-        $fields = $this->fieldModel->IsField('2222');
+        $fields = $this->fieldModel->getAll();
 
-        if (isset($fields)){
-            $isField = 'true';
-        }else{
-            $isField = 'false';
+        foreach ($exercises as &$exercise) {
+            $exercise['isfield'] = false;
+
+            foreach ($fields as $field) {
+                if ($exercise['exercise_id'] == $field['exercise_id']) {
+                    $exercise['isfield'] = true;
+                    break;
+                }
+            }
         }
+        unset($exercise);
 
-        $this->renderer->render("Manage/Exercise.php", ['exercises' => $exercises,'isField' => $isField]);
+        $this->renderer->render("Manage/Exercise.php", ['exercises' => $exercises]);
     }
     public function showAllAnswers($exerciseId)
     {
