@@ -124,4 +124,12 @@ class Fields
             'data' => $data,
         ]);
     }
+
+        public function destroy($exerciseId,$fieldId)
+    {
+        $this->fieldModel->destroy($fieldId);
+     
+         header("Location: /exercises/$exerciseId/fields");
+        exit;
+    }
 }
