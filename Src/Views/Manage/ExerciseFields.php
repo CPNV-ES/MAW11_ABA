@@ -50,7 +50,11 @@
                 </tbody>
             </table>
 
-            <a data-confirm="Are you sure? You won&#39;t be able to further edit this exercise" class="button" rel="nofollow" data-method="put" href="/exercises/<?= $exercise['exercise_id'] ?>?exercise%5Bstatus%5D=answering"><i class="fa fa-comment"></i> Complete and be ready for answers</a>
+            <a title="confirm" class="button" onclick="if(confirm('Are you sure? You won\'t be able to further edit this exercise')) {document.getElementById('complete-form-<?= $exercise['exercise_id'] ?>').submit();} return false;"><i class="fa fa-comment"></i> Complete and be ready for answers</a>
+
+            <form id="complete-form-<?= $exercise['exercise_id'] ?>" method="GET" action="/exercises/<?= $exercise['exercise_id'] ?>" style="display:none;">
+                <input type="hidden" name="exercise[status]" value="answering">
+            </form>
 
         </section>
         <section class="column">
