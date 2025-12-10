@@ -1,17 +1,21 @@
 <?php
 require_once SRC_DIR . 'Models/Database.php';
 require_once SRC_DIR . 'Models/Exercise.php';
+require_once SRC_DIR . 'Models/Field.php';
 require_once SRC_DIR . 'Renderer.php';
+
 class Navigate
 {
     private $db;
     private $exerciseModel;
+    private $fieldModel;
     private $renderer;
 
     public function __construct()
     {
         $this->db = new Database();
         $this->exerciseModel = new Exercise($this->db);
+        $this->fieldModel = new Field($this->db);
         $this->renderer = new Renderer();
     }
 
@@ -23,6 +27,21 @@ class Navigate
     public function showManageExercises()
     {
         $exercises = $this->exerciseModel->getAll();
+
+        $fields = $this->fieldModel->getAll();
+
+        foreach ($exercises as &$exercise) {
+            $exercise['isfield'] = false;
+
+            foreach ($fields as $field) {
+                if ($exercise['exercise_id'] == $field['exercise_id']) {
+                    $exercise['isfield'] = true;
+                    break;
+                }
+            }
+        }
+        unset($exercise);
+
         $this->renderer->render("Manage/Exercise.php", ['exercises' => $exercises]);
     }
     public function showAllAnswers($exerciseId)
