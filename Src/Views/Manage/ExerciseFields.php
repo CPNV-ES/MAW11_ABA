@@ -59,7 +59,7 @@
 
                 <div class="form-group <?= !empty($errors['label']) ? 'has-error' : '' ?>">
                     <label for="field_label">Label</label>
-                    <input type="text" name="field[label]" id="field_label" value="<?= htmlspecialchars($old['label'] ?? '') ?>" required maxlength="255"/>
+                    <input type="text" name="field[label]" id="field_label" value="<?= htmlspecialchars($old['label'] ?? '') ?>" required maxlength="255" placeholder="Choisir une question (max 255 caracters)"  />
                     <?php if (!empty($errors['label'])): ?>
                         <span class="help-block"><?= htmlspecialchars($errors['label']) ?></span>
                     <?php endif; ?>
