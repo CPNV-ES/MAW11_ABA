@@ -37,7 +37,10 @@
                         <td><?= $exercise["title"]?></td>
                         <td>
                             <?php if ($exercise['isfield'] === true) { ?>
-                                <a title="Be ready for answers" rel="nofollow" data-method="put" href="/exercises/<?= $exercise['exercise_id'] ?>?exercise%5Bstatus%5D=answering"><i class="fa fa-comment"></i></a>
+                                 <a title="confirm" onclick="if(confirm('Are you sure? You won\'t be able to further edit this exercise')) {document.getElementById('complete-form-<?= $exercise['exercise_id'] ?>').submit();} return false;"><i class="fa fa-comment"></i></a>
+                                 <form id="complete-form-<?= $exercise['exercise_id'] ?>" method="GET" action="/exercises/<?= $exercise['exercise_id'] ?>" style="display:none;">
+                                    <input type="hidden" name="exercise[status]" value="answering">
+                                </form>
                             <?php } ?>
                             <a title="Manage fields" href="/exercises/<?= $exercise["exercise_id"]?>/fields"><i class="fa fa-edit"></i></a>
                             <a title="delete" href="#" onclick="if(confirm('Are you sure?')){document.getElementById('delete-form-<?= $exercise["exercise_id"] ?>').submit();} return false;"><i class="fa fa-trash"></i></a>
