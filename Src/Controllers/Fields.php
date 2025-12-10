@@ -113,11 +113,21 @@ class Fields
 
         $data = $this->exerciseModel->getTitle($exerciseId);
 
-        $data += $this->fieldModel->getLabel($fieldId);
+        $labelData = $this->fieldModel->getLabel($fieldId);
+
+        if ($labelData !== false) {
+            $data += $labelData;
+        }
+
+        if (!$labelData) {
+            header('Location: /Errors/404');
+            exit;
+        }
 
         $data['id'] = $exerciseId;
 
         $fields = $this->fieldModel->showAllAnswersFromAQuestion($exerciseId,$fieldId);
+
 
         $this->renderer->render("Answers/AllFromAQuestion.php", [
             'fields' => $fields,
