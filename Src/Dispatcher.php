@@ -28,6 +28,18 @@ Class Dispatcher{
             return;
         }
 
+        if (preg_match('#^/exercises/(\d+)/fields/(\d+)$#', $uri, $matches)) {
+            $exerciseId = $matches[1];
+            $fieldId = $matches[2];
+            require_once SRC_DIR . 'Controllers/Fields.php';
+            $fieldController = new Fields();
+
+            if ($method == 'GET') {
+                $fieldController->destroy($exerciseId,$fieldId);
+            }
+            return;
+        }
+
         if (preg_match('#^/exercises/(\d+)/fields/(\d+)/edit$#', $uri, $matches)) {
             $exerciseId = $matches[1];
             $fieldId = $matches[2];
