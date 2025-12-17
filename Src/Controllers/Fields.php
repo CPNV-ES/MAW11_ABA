@@ -61,12 +61,30 @@ class Fields
 
     public function updateField($exerciseId, $fieldId)
     {
-        $label = $_POST['field']['label'] ?? null;
+        $label = trim($_POST['field']['label'] ?? '');
         $valueKind = $_POST['field']['value_kind'] ?? 'single_line';
 
-        if (empty($label)) {
-            header("Location: /exercises/$exerciseId/fields/$fieldId/edit");
-            exit;
+        $errors = [];
+
+        if ($label === '') {
+            $errors['label'] = "Le titre est requis";
+        } elseif (strlen($label) > 255) {
+            $errors['label'] = "Le titre ne peut pas dépasser 255 caractères";
+        }
+
+        if (!empty($errors)) {
+            $exercise = $this->exerciseModel->getById($exerciseId);
+            $field = $this->fieldModel->getById($fieldId);
+
+
+            $field['label'] = $label;
+
+            $this->renderer->render("Manage/EditField.php", [
+                'exercise' => $exercise,
+                'field' => $field,
+                'errors' => $errors
+            ]);
+            return;
         }
 
         $this->fieldModel->update($fieldId, $label, $valueKind);
@@ -74,6 +92,7 @@ class Fields
         header("Location: /exercises/$exerciseId/fields");
         exit;
     }
+
 
     public function createField($exerciseId)
     {

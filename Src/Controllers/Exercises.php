@@ -37,8 +37,6 @@ class Exercises
             $data = $this->exerciseModel->getTitle($id);
             header('Location:' . $id . '/fields');
         }
-
-        // Invalid, render the view
         return ['view' => 'New/Exercise.php', 'data' => $data];
     }
     

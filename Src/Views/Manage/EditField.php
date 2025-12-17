@@ -22,7 +22,10 @@
 
         <div class="field">
             <label for="field_label">Label</label>
-            <input type="text" value="<?= htmlspecialchars($field['label']) ?>" name="field[label]" id="field_label" />
+            <input type="text" value="<?= htmlspecialchars($field['label']) ?>" name="field[label]" id="field_label" required maxlength="255" placeholder="Choisir une question (max 255 caracters)"/>
+            <?php if (!empty($errors['label'])): ?>
+                <span class="help-block"><?= htmlspecialchars($errors['label']) ?></span>
+            <?php endif; ?>
         </div>
 
         <div class="field">
