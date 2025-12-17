@@ -59,7 +59,53 @@ class Answers
                 $this->answerModel->updateById($answers[$index], $answerId);
             }
         }
-        header('Location: /exercises/answering');
+
+        header("Location: /exercises/{$exercise_id}/fulfillments/{$fulfillmentId}/edit");
+        exit;
+    }
+
+    public function edit($exerciseId, $fulfillmentId)
+    {
+        $exercise = $this->exerciseModel->getById($exerciseId);
+
+        if (!$exercise) {
+            header('Location: /Errors/404');
+            exit;
+        }
+
+        $fields = $this->fieldModel->getAllByExerciseId($exerciseId);
+        $answers = $this->answerModel->getByFulfillmentId($fulfillmentId);
+
+        $data = [
+            'exercise' => $exercise,
+            'fields' => $fields,
+            'answers' => $answers,
+            'fulfillmentId' => $fulfillmentId,
+            'isEdit' => true
+        ];
+
+        $this->renderer->render('Answering/Fulfillment.php', $data);
+    }
+
+    public function update($fulfillmentId)
+    {
+        $exercise_id = $_POST['exercise_id'] ?? null;
+        $fields_ids = $_POST['field_ids'] ?? [];
+        $answers = $_POST['answers'] ?? [];
+        $answer_ids = $_POST['answer_ids'] ?? [];
+
+        if (!$exercise_id) {
+            header('Location: /exercises/answering');
+            exit;
+        }
+
+        foreach ($answer_ids as $index => $answer_id) {
+            if (isset($answers[$index])) {
+                $this->answerModel->updateById($answers[$index], $answer_id);
+            }
+        }
+
+        header("Location: /exercises/{$exercise_id}/fulfillments/{$fulfillmentId}/edit");
         exit;
     }
 }
