@@ -19,22 +19,44 @@
 
     <body>
     <h1>Your take</h1>
-    <p>If you'd like to come back later to finish, simply submit it with blanks</p>
+    <?php if (isset($isEdit) && $isEdit): ?>
+        <p>Bookmark this page, it's yours. You'll be able to come back later to finish.</p>
+    <?php else: ?>
+        <p>If you'd like to come back later to finish, simply submit it with blanks</p>
+    <?php endif; ?>
 
-    <form action="/exercises/<?= $exercise["exercise_id"] ?>/fulfillments/new" accept-charset="UTF-8" method="post">
+    <?php
+    $formAction = isset($isEdit) && $isEdit
+            ? "/exercises/{$exercise['exercise_id']}/fulfillments/{$fulfillmentId}"
+            : "/exercises/{$exercise['exercise_id']}/fulfillments/new";
+    ?>
+
+    <form action="<?= $formAction ?>" accept-charset="UTF-8" method="post">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <input type="hidden" name="authenticity_token" value="wF4zYqEsIyc012LLc4RxilTULY268IW3hU0bY4ytbn5xtfExNXp3SWcZ0IXF7p23NLo6Y/2XJlJqaBV0UbrYpw==" />
         <input type="hidden" name="exercise_id" value="<?= htmlspecialchars($exercise['exercise_id']) ?>" />
 
         <?php foreach ($fields as $index => $field): ?>
+            <?php
+            $answerValue = '';
+            $answerId = null;
+
+            if (isset($answers) && isset($answers[$index])) {
+                $answerValue = $answers[$index]['answer_text'] ?? '';
+                $answerId = $answers[$index]['answer_id'] ?? null;
+            }
+            ?>
             <div class="field">
                 <label for="answers_<?= $index ?>"><?= htmlspecialchars($field["label"]) ?></label>
                 <?php if ($field["value_kind"] === 'single_line'): ?>
-                    <input type="text" name="answers[<?= $index ?>]" id="answers_<?= $index ?>" value="" />
+                    <input type="text" name="answers[<?= $index ?>]" id="answers_<?= $index ?>" value="<?= htmlspecialchars($answerValue) ?>" />
                 <?php else: ?>
-                    <textarea name="answers[<?= $index ?>]" id="answers_<?= $index ?>"></textarea>
+                    <textarea name="answers[<?= $index ?>]" id="answers_<?= $index ?>"><?= htmlspecialchars($answerValue) ?></textarea>
                 <?php endif; ?>
                 <input type="hidden" name="field_ids[<?= $index ?>]" value="<?= htmlspecialchars($field['field_id']) ?>" />
+                <?php if ($answerId !== null): ?>
+                    <input type="hidden" name="answer_ids[<?= $index ?>]" value="<?= htmlspecialchars($answerId) ?>" />
+                <?php endif; ?>
             </div>
         <?php endforeach; ?>
 
