@@ -40,4 +40,10 @@ class Answer {
         ]);
     }
 
+    function getByFulfillmentId($fulfillment_id) {
+        $stmt = $this->pdo->prepare("SELECT * FROM answers WHERE fulfillment_id = :fulfillment_id ORDER BY answer_id");
+        $stmt->execute(['fulfillment_id' => $fulfillment_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
