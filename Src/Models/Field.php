@@ -81,4 +81,10 @@ class Field {
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function destroy($fieldId){
+        $stmt = $this->pdo->prepare("DELETE FROM `fields` WHERE field_id = :id");
+        $stmt->execute(['id' => $fieldId]);
+        return $stmt->rowCount() > 0;
+    }
 }

@@ -43,7 +43,7 @@
                             ?></td>
                         <td>
                             <a title="Edit" href="/exercises/<?= $exercise['exercise_id'] ?>/fields/<?= $field['field_id'] ?>/edit"><i class="fa fa-edit"></i></a>
-                            <a data-confirm="Are you sure?" title="Destroy" rel="nofollow" data-method="delete" href="#"><i class="fa fa-trash"></i></a>
+                            <a title="Destroy" rel="nofollow" data-method="delete" href="/exercises/<?= $exercise['exercise_id'] ?>/fields/<?= $field['field_id'] ?>"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
