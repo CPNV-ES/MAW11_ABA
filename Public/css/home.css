@@ -187,6 +187,24 @@
 .fa-inverse {
   color: #fff; }
 
+.help-block{
+  color: #a94442;
+  font-size: 0.9em;
+  margin-top: 5px;
+  display: block;
+}
+
+.form-group {
+  margin-bottom: 15px
+}
+.form-group.has-error input {
+  border-color: #a94442;
+}
+
+.form-group.has-error label {
+  color: #a94442;
+}
+
 /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
 readers do not read off random characters that represent icons */
 .fa-500px:before {

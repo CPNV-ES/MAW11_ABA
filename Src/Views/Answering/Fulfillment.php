@@ -22,7 +22,7 @@
     <?php if (isset($isEdit) && $isEdit): ?>
         <p>Bookmark this page, it's yours. You'll be able to come back later to finish.</p>
     <?php else: ?>
-        <p>If you'd like to come back later to finish, simply submit it with blanks</p>
+        <p>If you'd like to come back later to finish, simply submit it with one answer or more.</p>
     <?php endif; ?>
 
     <?php
@@ -35,6 +35,14 @@
         <input name="utf8" type="hidden" value="&#x2713;" />
         <input type="hidden" name="authenticity_token" value="wF4zYqEsIyc012LLc4RxilTULY268IW3hU0bY4ytbn5xtfExNXp3SWcZ0IXF7p23NLo6Y/2XJlJqaBV0UbrYpw==" />
         <input type="hidden" name="exercise_id" value="<?= htmlspecialchars($exercise['exercise_id']) ?>" />
+
+        <?php if (isset($errors) && !empty($errors)): ?>
+            <?php foreach ($errors as $error): ?>
+                <div class="form-group has-error">
+                    <span class="help-block"><?= htmlspecialchars($error) ?></span>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
 
         <?php foreach ($fields as $index => $field): ?>
             <?php
@@ -49,11 +57,11 @@
             <div class="field">
                 <label for="answers_<?= $index ?>"><?= htmlspecialchars($field["label"]) ?></label>
                 <?php if ($field["value_kind"] === 'single_line'): ?>
-                    <input type="text" name="answers[<?= $index ?>]" id="answers_<?= $index ?>" value="<?= htmlspecialchars($answerValue) ?>" />
+                    <input type="text" name="answers[<?= $index ?>]" id="answers_<?= $index ?>" value="<?= htmlspecialchars($answerValue) ?>" maxlength="1000" />
                 <?php else: ?>
-                    <textarea name="answers[<?= $index ?>]" id="answers_<?= $index ?>"><?= htmlspecialchars($answerValue) ?></textarea>
+                    <textarea name="answers[<?= $index ?>]" id="answers_<?= $index ?>" maxlength="1000"><?= htmlspecialchars($answerValue) ?></textarea>
                 <?php endif; ?>
-                <input type="hidden" name="field_ids[<?= $index ?>]" value="<?= htmlspecialchars($field['field_id']) ?>" />
+                <input type="hidden" name="field_ids[<?= $index ?>]" id="field_ids_<?= $index ?>" value="<?= htmlspecialchars($field['field_id']) ?>" />
                 <?php if ($answerId !== null): ?>
                     <input type="hidden" name="answer_ids[<?= $index ?>]" value="<?= htmlspecialchars($answerId) ?>" />
                 <?php endif; ?>
