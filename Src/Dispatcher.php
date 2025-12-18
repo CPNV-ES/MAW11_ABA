@@ -69,6 +69,36 @@ Class Dispatcher{
             return;
         }
 
+        if (preg_match('#^/exercises/(\d+)/fulfillments/(\d+)/edit$#', $uri, $matches)) {
+            $exerciseId = $matches[1];
+            $fulfillmentId = $matches[2];
+            require_once SRC_DIR . 'Controllers/Answers.php';
+            $answerController = new Answers();
+
+            if ($method == 'GET') {
+                $answerController->edit($exerciseId, $fulfillmentId);
+            }
+            return;
+        }
+
+        if (preg_match('#^/exercises/(\d+)/fulfillments/(\d+)$#', $uri, $matches)) {
+            $exerciseId = $matches[1];
+            $fulfillmentId = $matches[2];
+            require_once SRC_DIR . 'Controllers/Answers.php';
+            $answerController = new Answers();
+
+            if ($method == 'POST') {
+                $answerController->update($fulfillmentId);
+            }
+
+            if ($method == 'GET') {
+                require_once SRC_DIR . 'Controllers/Navigate.php';
+                $navigate = new Navigate();
+                $navigate->showAnAnswer($exerciseId, $fulfillmentId);
+            }
+            return;
+        }
+
         if (preg_match('#^/exercises/(\d+)/?$#', parse_url($uri, PHP_URL_PATH), $matches)) {
             $exerciseId = $matches[1];
 
@@ -82,18 +112,6 @@ Class Dispatcher{
             }
             if ($method == 'GET' && $status == 'answering') {
                 $exerciseController->setStatusToAnswering($exerciseId);
-            }
-            return;
-        }
-        if (preg_match('#^/exercises/(\d+)/fulfillments/(\d+)$#', parse_url($uri, PHP_URL_PATH), $matches)) {
-            $exerciseId = $matches[1];
-            $fullfillmentId = $matches[2];
-
-            require_once SRC_DIR . 'Controllers/Navigate.php';
-            $navigate = new Navigate();
-
-            if ($method == 'GET') {
-                $navigate->showAnAnswer($exerciseId,$fullfillmentId);
             }
             return;
         }
