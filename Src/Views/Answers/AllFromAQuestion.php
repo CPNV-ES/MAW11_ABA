@@ -16,7 +16,8 @@
         <title>ExerciseLooper</title>
         <meta name="csrf-param" content="authenticity_token" />
         <meta name="csrf-token" content="TApu58ub6RB2WZ6DQh9HpApDI7xYQoSOp7GIOpWryY4W6TEDbod6j33bUHxy0m5XZHZmxNfcxdglc5JZRjy7Kg==" />
-        <link rel="stylesheet" media="all" href="/css/home.css" />
+
+        <link rel="stylesheet" href="/css/common.css">
     </head>
 
     <body>

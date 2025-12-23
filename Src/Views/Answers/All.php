@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <meta name="csrf-param" content="authenticity_token" />
         <meta name="csrf-token" content="BXsG3Y5pcBftAp2Cra3Q6bQm828bQsdKutU1Pxa1PPSV3nsf8/34NTbrwbUyvOgQI74jNFBr4h4lCu4xOngsfA==" />
-        <link rel="stylesheet" media="all" href="/css/home.css" />
+        <link rel="stylesheet" href="/css/common.css">
     </head>
 
     <body>

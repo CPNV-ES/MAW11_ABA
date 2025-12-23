@@ -14,7 +14,7 @@
         <meta name="csrf-param" content="authenticity_token" />
         <meta name="csrf-token" content="MlSnmdNEYZd/yDiHtziwuYnU2JHgwK1CLN2g3IUJoZQ5xPMUHl2roCZhl5OlI7KUw6437MWJs0EkJAXoXtG0kw==" />
 
-        <link rel="stylesheet" media="all" href="/css/home.css" />
+        <link rel="stylesheet" href="/css/common.css">
     </head>
 
     <body>

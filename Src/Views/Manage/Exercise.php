@@ -14,6 +14,7 @@
         <meta name="csrf-token" content="WfvLG3l6aozgVBEFX1OGsQGwC1vggPUAScJh6xelh5ZWigN567rgwsNfL3MYBoWz3A+zhcA3nNdgoHuCKpj5Bw==" />
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <link rel="stylesheet" href="/css/common.css">
         <link rel="stylesheet" media="all" href="/css/manage-exercise.css" />
     </head>
 
