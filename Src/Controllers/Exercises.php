@@ -18,6 +18,33 @@ class Exercises
         $this->renderer = new Renderer();
     }
 
+    public function showExercises()
+    {
+        $exercises = $this->exerciseModel->getAll();
+        $this->renderer->render("Answering/Exercises.php", ['exercises' => $exercises]);
+    }
+
+    public function showManageExercises()
+    {
+        $exercises = $this->exerciseModel->getAll();
+
+        $fields = $this->fieldModel->getAll();
+
+        foreach ($exercises as &$exercise) {
+            $exercise['isfield'] = false;
+
+            foreach ($fields as $field) {
+                if ($exercise['exercise_id'] == $field['exercise_id']) {
+                    $exercise['isfield'] = true;
+                    break;
+                }
+            }
+        }
+        unset($exercise);
+
+        $this->renderer->render("Manage/Exercise.php", ['exercises' => $exercises]);
+    }
+
     public function create()
     {
         $title = $_POST['exercise_title'] ?? null;

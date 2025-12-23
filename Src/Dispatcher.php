@@ -92,9 +92,8 @@ Class Dispatcher{
             }
 
             if ($method == 'GET') {
-                require_once SRC_DIR . 'Controllers/Navigate.php';
-                $navigate = new Navigate();
-                $navigate->showAnAnswer($exerciseId, $fulfillmentId);
+                require_once SRC_DIR . 'Controllers/Answers.php';
+                $answerController->showAnAnswer($exerciseId, $fulfillmentId);
             }
             return;
         }
@@ -118,11 +117,11 @@ Class Dispatcher{
         if (preg_match('#^/exercises/(\d+)/results$#', parse_url($uri, PHP_URL_PATH), $matches)) {
             $exerciseId = $matches[1];
 
-            require_once SRC_DIR . 'Controllers/Navigate.php';
-            $navigate = new Navigate();
+            require_once SRC_DIR . 'Controllers/Answers.php';
+            $answerController = new Answers();
 
             if ($method == 'GET') {
-                $navigate->showAllAnswers($exerciseId);
+                $answerController->showAllAnswers($exerciseId);
             }
             return;
         }
@@ -161,15 +160,15 @@ Class Dispatcher{
                 break;
 
             case '/exercises/answering':
-                require_once SRC_DIR . 'Controllers/Navigate.php';
-                $navigate = new Navigate();
-                $navigate->showExercises();
+                require_once SRC_DIR . 'Controllers/Exercises.php';
+                $exerciseController = new Exercises();
+                $exerciseController->showExercises();
                 break;
 
             case '/exercises':
-                require_once SRC_DIR . 'Controllers/Navigate.php';
-                $navigate = new Navigate();
-                $navigate->showManageExercises();
+                require_once SRC_DIR . 'Controllers/Exercises.php';
+                $exerciseController = new Exercises();
+                $exerciseController->showManageExercises();
                 break;
 
             case '/exercises/delete':
