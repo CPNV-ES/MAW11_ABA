@@ -1,6 +1,9 @@
 <?php
-class Renderer {
-    public function render(string $viewPath, array $params = []): void {
+
+class Renderer
+{
+    public function render(string $viewPath, array $params = []): void
+    {
         $fullPath = SRC_DIR . 'Views/' . $viewPath;
 
         if (!file_exists($fullPath)) {
