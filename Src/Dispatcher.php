@@ -133,7 +133,7 @@ Class Dispatcher{
             $fieldController = new Fields();
 
             if ($method == 'GET') {
-                $fieldController->showAllAnswersFromAQuestion($exerciseId,$fieldId);
+                $fieldController->showAllAnswersFromAField($exerciseId,$fieldId);
             }
             return;
         }

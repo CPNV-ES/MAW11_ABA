@@ -52,7 +52,7 @@ class Field {
         ]);
         return $stmt->rowCount() > 0;
     }
-    public function showAllAnswersFromAQuestion($exerciseId, $fieldId) {
+    public function showAllAnswersFromAField($exerciseId, $fieldId) {
         $stmt = $this->pdo->prepare("
         SELECT 
             a.answer_id,

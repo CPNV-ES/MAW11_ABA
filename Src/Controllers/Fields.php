@@ -128,7 +128,7 @@ class Fields
         header("Location: /exercises/$exerciseId/fields");
         exit;
     }
-    public function showAllAnswersFromAQuestion($exerciseId,$fieldId){
+    public function showAllAnswersFromAField($exerciseId, $fieldId){
 
         $data = $this->exerciseModel->getTitle($exerciseId);
 
@@ -145,10 +145,10 @@ class Fields
 
         $data['id'] = $exerciseId;
 
-        $fields = $this->fieldModel->showAllAnswersFromAQuestion($exerciseId,$fieldId);
+        $fields = $this->fieldModel->showAllAnswersFromAField($exerciseId,$fieldId);
 
 
-        $this->renderer->render("Answers/AllFromAQuestion.php", [
+        $this->renderer->render("Answers/AllFromAField.php", [
             'fields' => $fields,
             'data' => $data,
         ]);
