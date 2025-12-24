@@ -1,4 +1,5 @@
 <?php
+
 require_once SRC_DIR . 'Models/Database.php';
 require_once SRC_DIR . 'Models/Answer.php';
 require_once SRC_DIR . 'Models/Exercise.php';
@@ -128,7 +129,8 @@ class Answers
         $this->renderer->render('Answering/Fulfillment.php', $data);
     }
 
-    public function save(){
+    public function save()
+    {
         $exercise_id = $_POST['exercise_id'] ?? null;
         $fields_ids = $_POST['field_ids'] ?? [];
         $answers = $_POST['answers'] ?? [];
@@ -176,7 +178,7 @@ class Answers
 
         $fulfillmentId = $this->answerModel->createFulfillment($exercise_id);
 
-        foreach ($fields_ids as $index => $field_id){
+        foreach ($fields_ids as $index => $field_id) {
             $answerId = $this->answerModel->insert($fulfillmentId, $field_id);
             if (isset($answers[$index])) {
                 $this->answerModel->updateById($answers[$index], $answerId);
