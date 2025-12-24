@@ -20,11 +20,11 @@ class Fields
         $this->renderer = new Renderer();
     }
 
-    public function manageFields($exerciseId, $errors = [], $oldInput = [])
+    public function showManageFields($exerciseId, $errors = [], $oldInput = [])
     {
         $exercise = $this->exerciseModel->getById($exerciseId);
 
-        if (!$exercise || $exercise['status'] == "closed" || $exercise['status'] == "answering") {
+        if (!$exercise || $exercise['status'] === "closed" || $exercise['status'] === "answering") {
             header('Location: /Errors/404');
             exit;
         }
@@ -41,12 +41,22 @@ class Fields
         $this->renderer->render('Manage/ExerciseFields.php', $data);
     }
 
-    public function editField($exerciseId, $fieldId)
+    public function showEditField($exerciseId, $fieldId)
     {
         $exercise = $this->exerciseModel->getById($exerciseId);
         $field = $this->fieldModel->getById($fieldId);
 
         if (!$exercise || !$field) {
+            header('Location: /Errors/404');
+            exit;
+        }
+
+        if ($field['exercise_id'] != $exerciseId) {
+            header('Location: /Errors/404');
+            exit;
+        }
+
+        if ($exercise['status'] === "closed" || $exercise['status'] === "answering") {
             header('Location: /Errors/404');
             exit;
         }
@@ -61,21 +71,38 @@ class Fields
 
     public function updateField($exerciseId, $fieldId)
     {
+        $exercise = $this->exerciseModel->getById($exerciseId);
+
+        if (!$exercise) {
+            header('Location: /Errors/404');
+            exit;
+        }
+
+        if ($exercise['status'] === "closed" || $exercise['status'] === "answering") {
+            header('Location: /Errors/404');
+            exit;
+        }
+        
+        $field = $this->fieldModel->getById($fieldId);
+
+        if (!$field || $field['exercise_id'] != $exerciseId) {
+            header('Location: /Errors/404');
+            exit;
+        }
+
         $label = trim($_POST['field']['label'] ?? '');
         $valueKind = $_POST['field']['value_kind'] ?? 'single_line';
 
         $errors = [];
 
         if ($label === '') {
-            $errors['label'] = "Le titre est requis";
+            $errors['label'] = "Le label est requis";
         } elseif (strlen($label) > 255) {
-            $errors['label'] = "Le titre ne peut pas dépasser 255 caractères";
+            $errors['label'] = "Le label ne peut pas dépasser 255 caractères";
         }
 
         if (!empty($errors)) {
-            $exercise = $this->exerciseModel->getById($exerciseId);
             $field = $this->fieldModel->getById($fieldId);
-
 
             $field['label'] = $label;
 
@@ -93,12 +120,16 @@ class Fields
         exit;
     }
 
-
     public function createField($exerciseId)
     {
         $exercise = $this->exerciseModel->getById($exerciseId);
 
         if (!$exercise) {
+            header('Location: /Errors/404');
+            exit;
+        }
+
+        if ($exercise['status'] === "closed" || $exercise['status'] === "answering") {
             header('Location: /Errors/404');
             exit;
         }
@@ -109,9 +140,9 @@ class Fields
         $errors = [];
 
         if (empty($label)) {
-            $errors['label'] = 'Le label est obligatoire.';
+            $errors['label'] = 'Le label est obligatoire';
         } elseif (strlen($label) > 255) {
-            $errors['label'] = 'Le label ne peut pas dépasser 255 caractères.';
+            $errors['label'] = 'Le label ne peut pas dépasser 255 caractères';
         }
 
         if (!empty($errors)) {
@@ -119,7 +150,7 @@ class Fields
                 'label' => $label,
                 'value_kind' => $valueKind
             ];
-            $this->manageFields($exerciseId, $errors, $oldInput);
+            $this->showManageFields($exerciseId, $errors, $oldInput);
             return;
         }
 
@@ -128,37 +159,65 @@ class Fields
         header("Location: /exercises/$exerciseId/fields");
         exit;
     }
-    public function showAllAnswersFromAQuestion($exerciseId,$fieldId){
+
+    public function showAllAnswersFromAField($exerciseId, $fieldId)
+    {
+        $exercise = $this->exerciseModel->getById($exerciseId);
+
+        if (!$exercise) {
+            header('Location: /Errors/404');
+            exit;
+        }
+
+        if ($exercise['status'] !== 'answering' && $exercise['status'] !== 'closed') {
+            header('Location: /Errors/404');
+            exit;
+        }
 
         $data = $this->exerciseModel->getTitle($exerciseId);
-
         $labelData = $this->fieldModel->getLabel($fieldId);
-
-        if ($labelData !== false) {
-            $data += $labelData;
-        }
 
         if (!$labelData) {
             header('Location: /Errors/404');
             exit;
         }
 
+        $data += $labelData;
         $data['id'] = $exerciseId;
 
-        $fields = $this->fieldModel->showAllAnswersFromAQuestion($exerciseId,$fieldId);
+        $fields = $this->fieldModel->showAllAnswersFromAField($exerciseId, $fieldId);
 
-
-        $this->renderer->render("Answers/AllFromAQuestion.php", [
+        $this->renderer->render("Answers/AllFromAField.php", [
             'fields' => $fields,
             'data' => $data,
         ]);
     }
 
-        public function destroy($exerciseId,$fieldId)
+    public function destroy($exerciseId, $fieldId)
     {
+        $exercise = $this->exerciseModel->getById($exerciseId);
+
+        if (!$exercise) {
+            header('Location: /Errors/404');
+            exit;
+        }
+
+        if ($exercise['status'] === "closed" || $exercise['status'] === "answering") {
+            header('Location: /Errors/404');
+            exit;
+        }
+
+        $field = $this->fieldModel->getById($fieldId);
+
+        if (!$field || $field['exercise_id'] != $exerciseId) {
+            header('Location: /Errors/404');
+            exit;
+        }
+
         $this->fieldModel->destroy($fieldId);
-     
-         header("Location: /exercises/$exerciseId/fields");
+
+
+        header("Location: /exercises/$exerciseId/fields");
         exit;
     }
 }

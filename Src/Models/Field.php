@@ -1,7 +1,9 @@
 <?php
+
 require_once 'Database.php';
 
-class Field {
+class Field
+{
     private $pdo;
 
     public function __construct(Database $db)
@@ -9,17 +11,20 @@ class Field {
         $this->pdo = $db->getConnection();
     }
 
-    public function getAllByExerciseId($exerciseId) {
+    public function getAllByExerciseId($exerciseId)
+    {
         $stmt = $this->pdo->prepare("SELECT * FROM `fields` WHERE exercise_id = :exercise_id ORDER BY field_id ASC");
         $stmt->execute(['exercise_id' => $exerciseId]);
         return $stmt->fetchAll();
     }
 
-    public function getById($id) {
+    public function getById($id)
+    {
         $stmt = $this->pdo->prepare("SELECT * FROM `fields` WHERE field_id = :id");
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
     public function getAll()
     {
         $stmt = $this->pdo->prepare("
@@ -31,6 +36,7 @@ class Field {
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
     public function create($exerciseId, $label, $valueKind)
     {
         $stmt = $this->pdo->prepare("INSERT INTO `fields` (exercise_id, label, value_kind) VALUES (:exercise_id, :label, :value_kind)");
@@ -52,7 +58,9 @@ class Field {
         ]);
         return $stmt->rowCount() > 0;
     }
-    public function showAllAnswersFromAQuestion($exerciseId, $fieldId) {
+
+    public function showAllAnswersFromAField($exerciseId, $fieldId)
+    {
         $stmt = $this->pdo->prepare("
         SELECT 
             a.answer_id,
@@ -76,13 +84,16 @@ class Field {
 
         return $stmt->fetchAll();
     }
-    public function getLabel($id) {
+
+    public function getLabel($id)
+    {
         $stmt = $this->pdo->prepare("SELECT label FROM `fields` WHERE field_id = :id");
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function destroy($fieldId){
+    public function destroy($fieldId)
+    {
         $stmt = $this->pdo->prepare("DELETE FROM `fields` WHERE field_id = :id");
         $stmt->execute(['id' => $fieldId]);
         return $stmt->rowCount() > 0;

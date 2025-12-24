@@ -1,6 +1,6 @@
 <header class="heading managing">
     <section class="container">
-        <a href="/"><img src="/assets/logo-84d7d70645fbe179ce04c983a5fae1e6cba523d7cd28e0cd49a04707ccbef56e.png" /></a>
+        <a href="/"><img src="/assets/logo-looper.png" /></a>
         <span class="exercise-label">Exercise: <a href="/exercises/<?= $exercise['exercise_id'] ?>/fields"><?= htmlspecialchars($exercise['title']) ?></a></span>
     </section>
 </header>
@@ -12,7 +12,7 @@
         <title>ExerciseLooper</title>
         <meta name="csrf-param" content="authenticity_token" />
         <meta name="csrf-token" content="bYfrqpT/c0SOL1kp9inU7AF4WU5OduaWg3i7ybpkJBli9iPIBj/5Cq0kZ1+xfNfu3MfhkG7Bj0GqGqGgh1laiA==" />
-        <link rel="stylesheet" media="all" href="/css/manage-fields-edit.css" />
+        <link rel="stylesheet" href="/css/common.css">
     </head>
 
     <body>

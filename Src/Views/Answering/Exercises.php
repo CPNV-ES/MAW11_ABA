@@ -1,7 +1,7 @@
 
 <header class="heading answering">
     <section class="container">
-        <a href="/"><img src="/assets/logo-84d7d70645fbe179ce04c983a5fae1e6cba523d7cd28e0cd49a04707ccbef56e.png" /></a>
+        <a href="/"><img src="/assets/logo-looper.png" /></a>
 
     </section>
 </header>
@@ -15,7 +15,8 @@
         <meta name="csrf-token" content="BXsG3Y5pcBftAp2Cra3Q6bQm828bQsdKutU1Pxa1PPSV3nsf8/34NTbrwbUyvOgQI74jNFBr4h4lCu4xOngsfA==" />
 
 
-        <link rel="stylesheet" media="all" href="/css/home.css" />
+        <link rel="stylesheet" href="/css/common.css">
+        <link rel="stylesheet" href="/css/home.css">
     </head>
 
     <body>

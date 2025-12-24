@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 - Page non trouvée | Exercise Looper</title>
+    <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" media="all" href="/css/404.css" />
 </head>
 <body>
 <div class="header">
-    <p><img src="/assets/logo-84d7d70645fbe179ce04c983a5fae1e6cba523d7cd28e0cd49a04707ccbef56e.png" alt="ExerciseLooper Logo" /></p>
+    <p><img src="/assets/logo-looper.png" alt="ExerciseLooper Logo" /></p>
     <h1>Exercise<br>Looper</h1>
 </div>
 

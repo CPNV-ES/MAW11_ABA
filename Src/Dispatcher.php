@@ -1,15 +1,18 @@
 <?php
+
 require_once SRC_DIR . "Renderer.php";
 
-Class Dispatcher{
-
+class Dispatcher
+{
     private $renderer;
 
-    function __construct(){
+    public function __construct()
+    {
         $this->renderer = new Renderer();
     }
 
-    function dispatch(){
+    public function dispatch()
+    {
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $uri = rtrim($uri, '/') ?: '/';
         $method = $_SERVER['REQUEST_METHOD'];
@@ -19,9 +22,9 @@ Class Dispatcher{
             require_once SRC_DIR . 'Controllers/Fields.php';
             $fieldController = new Fields();
 
-            if ($method == 'GET') {
-                $fieldController->manageFields($exerciseId);
-            } else if ($method == 'POST') {
+            if ($method === 'GET') {
+                $fieldController->showManageFields($exerciseId);
+            } elseif ($method === 'POST') {
                 $fieldController->createField($exerciseId);
             }
 
@@ -34,8 +37,8 @@ Class Dispatcher{
             require_once SRC_DIR . 'Controllers/Fields.php';
             $fieldController = new Fields();
 
-            if ($method == 'GET') {
-                $fieldController->destroy($exerciseId,$fieldId);
+            if ($method === 'GET') {
+                $fieldController->destroy($exerciseId, $fieldId);
             }
             return;
         }
@@ -46,9 +49,9 @@ Class Dispatcher{
             require_once SRC_DIR . 'Controllers/Fields.php';
             $fieldController = new Fields();
 
-            if ($method == 'GET') {
-                $fieldController->editField($exerciseId, $fieldId);
-            } else if ($method == 'POST') {
+            if ($method === 'GET') {
+                $fieldController->showEditField($exerciseId, $fieldId);
+            } elseif ($method === 'POST') {
                 $fieldController->updateField($exerciseId, $fieldId);
             }
             return;
@@ -59,11 +62,9 @@ Class Dispatcher{
             require_once SRC_DIR . 'Controllers/Answers.php';
             $answerController = new Answers();
 
-            if ($method == 'GET') {
+            if ($method === 'GET') {
                 $answerController->fulfillment($exerciseId);
-            }
-
-            if ($method == 'POST') {
+            } elseif ($method === 'POST') {
                 $answerController->save();
             }
             return;
@@ -75,7 +76,7 @@ Class Dispatcher{
             require_once SRC_DIR . 'Controllers/Answers.php';
             $answerController = new Answers();
 
-            if ($method == 'GET') {
+            if ($method === 'GET') {
                 $answerController->edit($exerciseId, $fulfillmentId);
             }
             return;
@@ -87,110 +88,104 @@ Class Dispatcher{
             require_once SRC_DIR . 'Controllers/Answers.php';
             $answerController = new Answers();
 
-            if ($method == 'POST') {
+            if ($method === 'POST') {
                 $answerController->update($fulfillmentId);
-            }
-
-            if ($method == 'GET') {
-                require_once SRC_DIR . 'Controllers/Navigate.php';
-                $navigate = new Navigate();
-                $navigate->showAnAnswer($exerciseId, $fulfillmentId);
+            } elseif ($method === 'GET') {
+                $answerController->showAnAnswer($exerciseId, $fulfillmentId);
             }
             return;
         }
 
         if (preg_match('#^/exercises/(\d+)/?$#', parse_url($uri, PHP_URL_PATH), $matches)) {
             $exerciseId = $matches[1];
-
             $status = $_GET['exercise']['status'] ?? null;
 
-            require_once SRC_DIR . 'Controllers/Exercises.php';
-            $exerciseController = new Exercises();
-            if (!$status) {
+            if (!$status || $status !== 'answering') {
                 $this->renderer->render("Errors/404.php");
                 return;
             }
-            if ($method == 'GET' && $status == 'answering') {
+
+            if ($method === 'GET') {
+                require_once SRC_DIR . 'Controllers/Exercises.php';
+                $exerciseController = new Exercises();
                 $exerciseController->setStatusToAnswering($exerciseId);
             }
             return;
         }
+
         if (preg_match('#^/exercises/(\d+)/results$#', parse_url($uri, PHP_URL_PATH), $matches)) {
             $exerciseId = $matches[1];
+            require_once SRC_DIR . 'Controllers/Answers.php';
+            $answerController = new Answers();
 
-            require_once SRC_DIR . 'Controllers/Navigate.php';
-            $navigate = new Navigate();
-
-            if ($method == 'GET') {
-                $navigate->showAllAnswers($exerciseId);
+            if ($method === 'GET') {
+                $answerController->showAllAnswers($exerciseId);
             }
             return;
         }
+
         if (preg_match('#^/exercises/(\d+)/results/(\d+)$#', parse_url($uri, PHP_URL_PATH), $matches)) {
             $exerciseId = $matches[1];
             $fieldId = $matches[2];
-
             require_once SRC_DIR . 'Controllers/Fields.php';
             $fieldController = new Fields();
 
-            if ($method == 'GET') {
-                $fieldController->showAllAnswersFromAQuestion($exerciseId,$fieldId);
+            if ($method === 'GET') {
+                $fieldController->showAllAnswersFromAField($exerciseId, $fieldId);
             }
             return;
         }
+
         switch ($uri) {
             case '/':
-                $renderer = new Renderer();
-                $renderer->render("Home.php");
+                $this->renderer->render("Home.php");
                 break;
 
             case '/exercises/new':
                 require_once SRC_DIR . 'Controllers/Exercises.php';
                 $exerciseController = new Exercises();
 
-                if ($method == 'GET') {
-                    $renderer = new Renderer(); //repeat fix ?
-                    $renderer->render("New/Exercise.php");
-                }
-                if ($method == 'POST') {
+                if ($method === 'GET') {
+                    $this->renderer->render("New/Exercise.php");
+                } elseif ($method === 'POST') {
                     $result = $exerciseController->create();
-
-                    $renderer = new Renderer();
-                    $renderer->render($result['view'], ['data' => $result['data']]);
+                    $this->renderer->render($result['view'], ['data' => $result['data']]);
                 }
                 break;
 
             case '/exercises/answering':
-                require_once SRC_DIR . 'Controllers/Navigate.php';
-                $navigate = new Navigate();
-                $navigate->showExercises();
+                require_once SRC_DIR . 'Controllers/Exercises.php';
+                $exerciseController = new Exercises();
+                $exerciseController->showExercises();
                 break;
 
             case '/exercises':
-                require_once SRC_DIR . 'Controllers/Navigate.php';
-                $navigate = new Navigate();
-                $navigate->showManageExercises();
+                require_once SRC_DIR . 'Controllers/Exercises.php';
+                $exerciseController = new Exercises();
+                $exerciseController->showManageExercises();
                 break;
 
             case '/exercises/delete':
                 require_once SRC_DIR . 'Controllers/Exercises.php';
                 $exerciseController = new Exercises();
 
-                if ($method == 'POST') {
-                    $exerciseController->delete();
+                if ($method === 'POST') {
+                    $exerciseController->destroy();
                 }
                 break;
+
             case '/exercises/close':
                 require_once SRC_DIR . 'Controllers/Exercises.php';
                 $exerciseController = new Exercises();
 
-                if ($method == 'POST') {
+                if ($method === 'POST') {
                     $exerciseController->setStatusToClosed();
                 }
                 break;
+
             default:
                 http_response_code(404);
-                require_once __DIR__ . '/Views/Errors/404.php';
+                $this->renderer->render("Errors/404.php");
                 exit;
         }
     }
