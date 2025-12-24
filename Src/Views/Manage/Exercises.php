@@ -32,25 +32,25 @@
 
                 <tbody>
                 <?php foreach ($exercises as $exercise) {
-                        if (isset($exercise["status"]) && $exercise["status"] === 'building') {
-                    ?>
-                    <tr>
-                        <td><?= $exercise["title"]?></td>
-                        <td>
-                            <?php if ($exercise['isfield'] === true) { ?>
-                                 <a title="confirm" onclick="if(confirm('Are you sure? You won\'t be able to further edit this exercise')) {document.getElementById('complete-form-<?= $exercise['exercise_id'] ?>').submit();} return false;"><i class="fa fa-comment"></i></a>
-                                 <form id="complete-form-<?= $exercise['exercise_id'] ?>" method="GET" action="/exercises/<?= $exercise['exercise_id'] ?>" style="display:none;">
-                                    <input type="hidden" name="exercise[status]" value="answering">
+                    if (isset($exercise["status"]) && $exercise["status"] === 'building') {
+                        ?>
+                        <tr>
+                            <td><?= $exercise["title"]?></td>
+                            <td>
+                                <?php if ($exercise['isfield'] === true) { ?>
+                                    <a title="confirm" onclick="if(confirm('Are you sure? You won\'t be able to further edit this exercise')) {document.getElementById('complete-form-<?= $exercise['exercise_id'] ?>').submit();} return false;"><i class="fa fa-comment"></i></a>
+                                    <form id="complete-form-<?= $exercise['exercise_id'] ?>" method="GET" action="/exercises/<?= $exercise['exercise_id'] ?>" style="display:none;">
+                                        <input type="hidden" name="exercise[status]" value="answering">
+                                    </form>
+                                <?php } ?>
+                                <a title="Manage fields" href="/exercises/<?= $exercise["exercise_id"]?>/fields"><i class="fa fa-edit"></i></a>
+                                <a title="delete" href="#" onclick="if(confirm('Are you sure?')){document.getElementById('delete-form-<?= $exercise["exercise_id"] ?>').submit();} return false;"><i class="fa fa-trash"></i></a>
+                                <form id="delete-form-<?= $exercise["exercise_id"] ?>" method="POST" action="/exercises/delete" style="display:none;">
+                                    <input type="hidden" name="exercise_id" value="<?= $exercise["exercise_id"]?>">
                                 </form>
-                            <?php } ?>
-                            <a title="Manage fields" href="/exercises/<?= $exercise["exercise_id"]?>/fields"><i class="fa fa-edit"></i></a>
-                            <a title="delete" href="#" onclick="if(confirm('Are you sure?')){document.getElementById('delete-form-<?= $exercise["exercise_id"] ?>').submit();} return false;"><i class="fa fa-trash"></i></a>
-                            <form id="delete-form-<?= $exercise["exercise_id"] ?>" method="POST" action="/exercises/delete" style="display:none;">
-                                <input type="hidden" name="exercise_id" value="<?= $exercise["exercise_id"]?>">
-                            </form>
-                        </td>
-                    </tr>
-                <?php } } ?>
+                            </td>
+                        </tr>
+                    <?php } } ?>
                 </tbody>
             </table>
         </section>
@@ -66,20 +66,20 @@
                 </thead>
 
                 <tbody>
-                <?php foreach ($exercises as $exercise) { 
+                <?php foreach ($exercises as $exercise) {
                     if (isset($exercise["status"]) && $exercise["status"] === 'answering') {
                         ?>
-                    <tr>
-                        <td><?= $exercise["title"]?></td>
-                        <td>
-                            <a title="Show results" href="/exercises/<?= $exercise["exercise_id"] ?>/results"><i class="fa fa-chart-bar"></i></a>
-                            <a title="close" rel="nofollow" data-method="put" href="#" onclick="if(confirm('Are you sure?')){document.getElementById('close-form-<?= $exercise["exercise_id"] ?>').submit();} return false;"><i class="fa fa-minus-circle"></i></a>
-                            <form id="close-form-<?= $exercise["exercise_id"] ?>" method="POST" action="/exercises/close" style="display:none;">
-                                <input type="hidden" name="exercise_id" value="<?= $exercise["exercise_id"]?>">
-                            </form>
-                        </td>
-                    </tr>
-                <?php } } ?>
+                        <tr>
+                            <td><?= $exercise["title"]?></td>
+                            <td>
+                                <a title="Show results" href="/exercises/<?= $exercise["exercise_id"] ?>/results"><i class="fa fa-chart-bar"></i></a>
+                                <a title="close" rel="nofollow" data-method="put" href="#" onclick="if(confirm('Are you sure?')){document.getElementById('close-form-<?= $exercise["exercise_id"] ?>').submit();} return false;"><i class="fa fa-minus-circle"></i></a>
+                                <form id="close-form-<?= $exercise["exercise_id"] ?>" method="POST" action="/exercises/close" style="display:none;">
+                                    <input type="hidden" name="exercise_id" value="<?= $exercise["exercise_id"]?>">
+                                </form>
+                            </td>
+                        </tr>
+                    <?php } } ?>
                 </tbody>
             </table>
         </section>
@@ -95,20 +95,20 @@
                 </thead>
 
                 <tbody>
-                <?php foreach ($exercises as $exercise) { 
-                        if (isset($exercise["status"]) && $exercise["status"] === "closed") {                    
-                    ?>
-                    <tr>
-                        <td><?= $exercise["title"]?></td>
-                        <td>
-                            <a title="Show results" href="/exercises/<?= $exercise["exercise_id"] ?>/results"><i class="fa fa-chart-bar"></i></a>
-                            <a title="delete" href="#" onclick="if(confirm('Are you sure?')){document.getElementById('delete-form-closed-<?= $exercise["exercise_id"] ?>').submit();} return false;"><i class="fa fa-trash"></i></a>
-                            <form id="delete-form-closed-<?= $exercise["exercise_id"] ?>" method="POST" action="/exercises/delete" style="display:none;">
-                                <input type="hidden" name="exercise_id" value="<?= $exercise["exercise_id"] ?>">
-                            </form>
-                        </td>
-                    </tr>
-                <?php } } ?>
+                <?php foreach ($exercises as $exercise) {
+                    if (isset($exercise["status"]) && $exercise["status"] === "closed") {
+                        ?>
+                        <tr>
+                            <td><?= $exercise["title"]?></td>
+                            <td>
+                                <a title="Show results" href="/exercises/<?= $exercise["exercise_id"] ?>/results"><i class="fa fa-chart-bar"></i></a>
+                                <a title="delete" href="#" onclick="if(confirm('Are you sure?')){document.getElementById('delete-form-closed-<?= $exercise["exercise_id"] ?>').submit();} return false;"><i class="fa fa-trash"></i></a>
+                                <form id="delete-form-closed-<?= $exercise["exercise_id"] ?>" method="POST" action="/exercises/delete" style="display:none;">
+                                    <input type="hidden" name="exercise_id" value="<?= $exercise["exercise_id"] ?>">
+                                </form>
+                            </td>
+                        </tr>
+                    <?php } } ?>
                 </tbody>
             </table>
         </section>
