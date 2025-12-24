@@ -51,6 +51,11 @@ class Fields
             exit;
         }
 
+        if ($exercise['status'] === "closed" || $exercise['status'] === "answering") {
+            header('Location: /Errors/404');
+            exit;
+        }
+
         $data = [
             'exercise' => $exercise,
             'field' => $field
@@ -61,6 +66,18 @@ class Fields
 
     public function updateField($exerciseId, $fieldId)
     {
+        $exercise = $this->exerciseModel->getById($exerciseId);
+
+        if (!$exercise) {
+            header('Location: /Errors/404');
+            exit;
+        }
+
+        if ($exercise['status'] === "closed" || $exercise['status'] === "answering") {
+            header('Location: /Errors/404');
+            exit;
+        }
+
         $label = trim($_POST['field']['label'] ?? '');
         $valueKind = $_POST['field']['value_kind'] ?? 'single_line';
 
@@ -73,7 +90,6 @@ class Fields
         }
 
         if (!empty($errors)) {
-            $exercise = $this->exerciseModel->getById($exerciseId);
             $field = $this->fieldModel->getById($fieldId);
 
             $field['label'] = $label;
@@ -97,6 +113,11 @@ class Fields
         $exercise = $this->exerciseModel->getById($exerciseId);
 
         if (!$exercise) {
+            header('Location: /Errors/404');
+            exit;
+        }
+
+        if ($exercise['status'] === "closed" || $exercise['status'] === "answering") {
             header('Location: /Errors/404');
             exit;
         }
@@ -129,6 +150,18 @@ class Fields
 
     public function showAllAnswersFromAField($exerciseId, $fieldId)
     {
+        $exercise = $this->exerciseModel->getById($exerciseId);
+
+        if (!$exercise) {
+            header('Location: /Errors/404');
+            exit;
+        }
+
+        if ($exercise['status'] !== 'answering' && $exercise['status'] !== 'closed') {
+            header('Location: /Errors/404');
+            exit;
+        }
+
         $data = $this->exerciseModel->getTitle($exerciseId);
         $labelData = $this->fieldModel->getLabel($fieldId);
 
@@ -150,6 +183,18 @@ class Fields
 
     public function destroy($exerciseId, $fieldId)
     {
+        $exercise = $this->exerciseModel->getById($exerciseId);
+
+        if (!$exercise) {
+            header('Location: /Errors/404');
+            exit;
+        }
+
+        if ($exercise['status'] === "closed" || $exercise['status'] === "answering") {
+            header('Location: /Errors/404');
+            exit;
+        }
+
         $this->fieldModel->destroy($fieldId);
 
         header("Location: /exercises/$exerciseId/fields");

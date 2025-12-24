@@ -25,6 +25,18 @@ class Answers
 
     public function showAllAnswers($exerciseId)
     {
+        $exercise = $this->exerciseModel->getById($exerciseId);
+
+        if (!$exercise) {
+            $this->renderer->render("Errors/404.php");
+            return;
+        }
+
+        if ($exercise['status'] !== 'answering' && $exercise['status'] !== 'closed') {
+            $this->renderer->render("Errors/404.php");
+            return;
+        }
+
         $data = $this->exerciseModel->getTitle($exerciseId);
 
         if (!is_array($data) || empty($data['title'])) {
@@ -77,6 +89,18 @@ class Answers
 
     public function showAnAnswer($exerciseId, $fulfillmentId)
     {
+        $exercise = $this->exerciseModel->getById($exerciseId);
+
+        if (!$exercise) {
+            $this->renderer->render("Errors/404.php");
+            return;
+        }
+
+        if ($exercise['status'] !== 'answering' && $exercise['status'] !== 'closed') {
+            $this->renderer->render("Errors/404.php");
+            return;
+        }
+
         $titleData = $this->exerciseModel->getTitle($exerciseId);
         $dateData  = $this->exerciseModel->getDateOfExercise($fulfillmentId);
         $exerciseCheck = $this->exerciseModel->getIdOfExercise($fulfillmentId);
@@ -140,6 +164,18 @@ class Answers
             exit;
         }
 
+        $exercise = $this->exerciseModel->getById($exercise_id);
+
+        if (!$exercise) {
+            header('Location: /exercises/answering');
+            exit;
+        }
+
+        if ($exercise['status'] !== 'answering') {
+            header('Location: /exercises/answering');
+            exit;
+        }
+
         $errors = [];
 
         foreach ($answers as $answer) {
@@ -162,7 +198,6 @@ class Answers
         }
 
         if (!empty($errors)) {
-            $exercise = $this->exerciseModel->getById($exercise_id);
             $fields = $this->fieldModel->getAllByExerciseId($exercise_id);
 
             $data = [
@@ -235,6 +270,18 @@ class Answers
             exit;
         }
 
+        $exercise = $this->exerciseModel->getById($exercise_id);
+
+        if (!$exercise) {
+            header('Location: /exercises/answering');
+            exit;
+        }
+
+        if ($exercise['status'] !== 'answering') {
+            header('Location: /exercises/answering');
+            exit;
+        }
+
         $errors = [];
 
         foreach ($answers as $answer) {
@@ -257,7 +304,6 @@ class Answers
         }
 
         if (!empty($errors)) {
-            $exercise = $this->exerciseModel->getById($exercise_id);
             $fields = $this->fieldModel->getAllByExerciseId($exercise_id);
             $existingAnswers = $this->answerModel->getByFulfillmentId($fulfillmentId);
 

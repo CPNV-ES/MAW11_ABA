@@ -29,13 +29,14 @@ class Exercises
     public function showManageExercises()
     {
         $exercises = $this->exerciseModel->getAll();
+
         $fields = $this->fieldModel->getAll();
 
         foreach ($exercises as &$exercise) {
             $exercise['isfield'] = false;
 
             foreach ($fields as $field) {
-                if ($exercise['exercise_id'] === $field['exercise_id']) {
+                if ($exercise['exercise_id'] == $field['exercise_id']) {
                     $exercise['isfield'] = true;
                     break;
                 }
@@ -83,6 +84,18 @@ class Exercises
 
     public function setStatusToAnswering($id)
     {
+        $exercise = $this->exerciseModel->getById($id);
+
+        if (!$exercise) {
+            header('Location: /Errors/404');
+            exit;
+        }
+
+        if ($exercise['status'] !== 'building') {
+            header('Location: /Errors/404');
+            exit;
+        }
+
         if (!empty($this->fieldModel->getAllByExerciseId($id))) {
             if ($this->exerciseModel->setStatusToAnswering($id)) {
                 header('Location: /exercises');
@@ -100,6 +113,23 @@ class Exercises
     public function setStatusToClosed()
     {
         $id = $_POST['exercise_id'] ?? null;
+
+        if (!$id) {
+            header('Location: /exercises');
+            exit;
+        }
+
+        $exercise = $this->exerciseModel->getById($id);
+
+        if (!$exercise) {
+            header('Location: /exercises');
+            exit;
+        }
+
+        if ($exercise['status'] !== 'answering') {
+            header('Location: /exercises');
+            exit;
+        }
 
         $this->exerciseModel->setStatusToClosed($id);
         header('Location: /exercises/');
