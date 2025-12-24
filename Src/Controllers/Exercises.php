@@ -42,7 +42,7 @@ class Exercises
         }
         unset($exercise);
 
-        $this->renderer->render("Manage/Exercise.php", ['exercises' => $exercises]);
+        $this->renderer->render("Manage/Exercises.php", ['exercises' => $exercises]);
     }
 
     public function create()
