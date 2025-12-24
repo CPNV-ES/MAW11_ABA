@@ -1,13 +1,16 @@
 <?php
-class Database {
+
+class Database
+{
     private $host;
     private $db;
     private $user;
-    private $pass ;
+    private $pass;
     private $charset;
     private $pdo;
 
-    public function __construct() {
+    public function __construct()
+    {
         $config = require __DIR__ . '/Config.php';
 
         $this->host = $config['host'];
@@ -16,6 +19,7 @@ class Database {
         $this->pass = $config['pass'];
         $this->charset = $config['charset'];
         $dsn = "mysql:host={$this->host};dbname={$this->db};charset={$this->charset}";
+
         try {
             $this->pdo = new PDO($dsn, $this->user, $this->pass, [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -27,7 +31,8 @@ class Database {
         }
     }
 
-    public function getConnection() {
+    public function getConnection()
+    {
         return $this->pdo;
     }
 }
