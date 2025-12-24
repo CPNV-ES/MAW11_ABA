@@ -238,6 +238,14 @@ class Answers
             exit;
         }
 
+        $exerciseCheck = $this->exerciseModel->getIdOfExercise($fulfillmentId);
+        $exerciseIdFromFulfillment = $exerciseCheck['exercise_id'] ?? null;
+
+        if (!$exerciseIdFromFulfillment || $exerciseIdFromFulfillment != $exerciseId) {
+            header('Location: /Errors/404');
+            exit;
+        }
+
         $fields = $this->fieldModel->getAllByExerciseId($exerciseId);
 
         if (empty($fields)) {
@@ -278,6 +286,14 @@ class Answers
         }
 
         if ($exercise['status'] !== 'answering') {
+            header('Location: /exercises/answering');
+            exit;
+        }
+
+        $exerciseCheck = $this->exerciseModel->getIdOfExercise($fulfillmentId);
+        $exerciseIdFromFulfillment = $exerciseCheck['exercise_id'] ?? null;
+
+        if (!$exerciseIdFromFulfillment || $exerciseIdFromFulfillment != $exercise_id) {
             header('Location: /exercises/answering');
             exit;
         }

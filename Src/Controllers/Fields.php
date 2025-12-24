@@ -51,6 +51,11 @@ class Fields
             exit;
         }
 
+        if ($field['exercise_id'] != $exerciseId) {
+            header('Location: /Errors/404');
+            exit;
+        }
+
         if ($exercise['status'] === "closed" || $exercise['status'] === "answering") {
             header('Location: /Errors/404');
             exit;
@@ -74,6 +79,14 @@ class Fields
         }
 
         if ($exercise['status'] === "closed" || $exercise['status'] === "answering") {
+            header('Location: /Errors/404');
+            exit;
+        }
+
+        // ✅ AJOUT : Vérifier que le field appartient à l'exercice
+        $field = $this->fieldModel->getById($fieldId);
+
+        if (!$field || $field['exercise_id'] != $exerciseId) {
             header('Location: /Errors/404');
             exit;
         }
@@ -195,7 +208,15 @@ class Fields
             exit;
         }
 
+        $field = $this->fieldModel->getById($fieldId);
+
+        if (!$field || $field['exercise_id'] != $exerciseId) {
+            header('Location: /Errors/404');
+            exit;
+        }
+
         $this->fieldModel->destroy($fieldId);
+
 
         header("Location: /exercises/$exerciseId/fields");
         exit;
