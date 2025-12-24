@@ -38,7 +38,7 @@
                             <td><?= $exercise["title"]?></td>
                             <td>
                                 <?php if ($exercise['isfield'] === true) { ?>
-                                    <a title="confirm" onclick="if(confirm('Are you sure? You won\'t be able to further edit this exercise')) {document.getElementById('complete-form-<?= $exercise['exercise_id'] ?>').submit();} return false;"><i class="fa fa-comment"></i></a>
+                                    <a href="#" title="confirm" onclick="if(confirm('Are you sure? You won\'t be able to further edit this exercise')) {document.getElementById('complete-form-<?= $exercise['exercise_id'] ?>').submit();} else {return false;} return false;"><i class="fa fa-comment"></i></a>
                                     <form id="complete-form-<?= $exercise['exercise_id'] ?>" method="GET" action="/exercises/<?= $exercise['exercise_id'] ?>" style="display:none;">
                                         <input type="hidden" name="exercise[status]" value="answering">
                                     </form>
