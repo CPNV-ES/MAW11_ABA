@@ -23,7 +23,7 @@ class Dispatcher
             $fieldController = new Fields();
 
             if ($method === 'GET') {
-                $fieldController->manageFields($exerciseId);
+                $fieldController->showManageFields($exerciseId);
             } elseif ($method === 'POST') {
                 $fieldController->createField($exerciseId);
             }
@@ -50,7 +50,7 @@ class Dispatcher
             $fieldController = new Fields();
 
             if ($method === 'GET') {
-                $fieldController->editField($exerciseId, $fieldId);
+                $fieldController->showEditField($exerciseId, $fieldId);
             } elseif ($method === 'POST') {
                 $fieldController->updateField($exerciseId, $fieldId);
             }
