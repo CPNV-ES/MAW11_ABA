@@ -82,8 +82,7 @@ class Fields
             header('Location: /Errors/404');
             exit;
         }
-
-        // ✅ AJOUT : Vérifier que le field appartient à l'exercice
+        
         $field = $this->fieldModel->getById($fieldId);
 
         if (!$field || $field['exercise_id'] != $exerciseId) {
