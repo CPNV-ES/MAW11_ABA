@@ -1,7 +1,9 @@
 <?php
+
 require_once 'Database.php';
 
-class Exercise {
+class Exercise
+{
     private $pdo;
 
     public function __construct(Database $db)
@@ -9,10 +11,12 @@ class Exercise {
         $this->pdo = $db->getConnection();
     }
 
-    public function getAll() {
+    public function getAll()
+    {
         $stmt = $this->pdo->query("SELECT exercise_id, title, status FROM `exercises`");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
     public function getAllAnswersByExercise($exerciseId)
     {
         $sql = "
@@ -53,16 +57,19 @@ class Exercise {
             WHERE ff.fulfillment_id = :fulfillmentId
             ORDER BY ff.fulfillment_date DESC
         ";
+
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute(['fulfillmentId' => $fulfillmentId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
     public function getAllFieldsFromAnExercise($id)
     {
-        $stmt = $this->pdo->prepare("SELECT exercise_id,label,field_id FROM `fields` WHERE `exercise_id` = :id");
+        $stmt = $this->pdo->prepare("SELECT exercise_id, label, field_id FROM `fields` WHERE `exercise_id` = :id");
         $stmt->execute(['id' => $id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
     public function create($title)
     {
         $stmt = $this->pdo->prepare("INSERT INTO `exercises` (title) VALUES (:title)");
@@ -71,27 +78,29 @@ class Exercise {
         return $lastid;
     }
 
-    public function getTitle($id) {
+    public function getTitle($id)
+    {
         $stmt = $this->pdo->prepare("SELECT title FROM `exercises` WHERE exercise_id = :id");
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getDateOfExercise($id) {
+    public function getDateOfExercise($id)
+    {
         $stmt = $this->pdo->prepare("SELECT fulfillment_date FROM `fulfillments` WHERE fulfillment_id = :id");
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getIdOfExercise($id) {
+    public function getIdOfExercise($id)
+    {
         $stmt = $this->pdo->prepare("SELECT exercise_id FROM `fulfillments` WHERE fulfillment_id = :id");
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-
-
-    public function getById($id) {
+    public function getById($id)
+    {
         $stmt = $this->pdo->prepare("SELECT * FROM `exercises` WHERE exercise_id = :id");
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -102,14 +111,15 @@ class Exercise {
         $stmt = $this->pdo->prepare("DELETE FROM `exercises` WHERE exercise_id = :id");
         $stmt->execute(['id' => $id]);
         return $stmt->rowCount() > 0;
-
     }
+
     public function setStatusToAnswering($id)
     {
         $stmt = $this->pdo->prepare("UPDATE `exercises` SET status = 'answering' WHERE exercise_id = :id AND status = 'building'");
         $stmt->execute(['id' => $id]);
         return $stmt->rowCount() > 0;
     }
+
     public function setStatusToClosed($id)
     {
         $stmt = $this->pdo->prepare("UPDATE `exercises` SET status = 'closed' WHERE exercise_id = :id AND status = 'answering'");
