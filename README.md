@@ -5,7 +5,7 @@ Copy of "ExerciseLooper" (https://exercice-looper.mycpnv.ch/), an application fo
 
 # Getting Started
 ## Prerequisites
-- **PHP** >= 8.0
+- **PHP** >= 8.2
 - **MySQL** >= 8.0 or **MariaDB** >= 10.5
 - Composer version 2.8.11
 - IDE used (PhpStorm, Visual Studio Code)
@@ -29,7 +29,6 @@ composer install
 ### 3. Database setup
 
 Execute the SQL script to create the database and tables:
-
 ```bash
 mysql -u root -p < database.sql
 ```
@@ -45,8 +44,7 @@ source database.sql
 
 ### 4. Configure database connection
 
-Create a file `Models/Config.php` with your database credentials:
-
+Create a file `Src/Models/Config.php` with your database credentials:
 ```php
 <?php
 return [
@@ -62,7 +60,7 @@ return [
 
 #### Using PHP built-in server (Development)
 ```bash
-cd public
+cd Public
 php -S localhost:8000
 ```
 
@@ -73,29 +71,23 @@ Then open your browser at: `http://localhost:8000`
 MAW11_ABA/
 ├── Public/
 │   ├── Assets/
-│   │   └── logo-84d7d70645fbe179ce04c983a5fae1a...
+│   │   └── logo-looper.png
 │   ├── css/
+│   │   ├── 404.css
+│   │   ├── common.css
 │   │   ├── home.css
 │   │   ├── manage-exercise-fields.css
-│   │   ├── manage-exercise.css
-│   │   ├── manage-fields-edit.css
-│   │   └── new-exercise.css
-│   ├── img/
-│   │   ├── close.png
-│   │   ├── commentary.png
-│   │   ├── edit.png
-│   │   ├── stats.png
-│   │   └── trash.png
-│   ├── index.php
-│   └── README.md
+│   │   └── manage-exercise.css
+│   └── index.php
 │
 ├── Src/
 │   ├── Controllers/
+│   │   ├── Answers.php
 │   │   ├── Exercises.php
-│   │   ├── Fields.php
-│   │   └── Navigate.php
+│   │   └── Fields.php
 │   │
 │   ├── Models/
+│   │   ├── Answer.php
 │   │   ├── Config.php
 │   │   ├── Database.php
 │   │   ├── Exercise.php
@@ -104,18 +96,27 @@ MAW11_ABA/
 │   │
 │   ├── Views/
 │   │   ├── Answering/
-│   │   │   └── Exercises.php
+│   │   │   ├── Exercises.php
+│   │   │   └── Fulfillment.php
+│   │   ├── Answers/
+│   │   │   ├── All.php
+│   │   │   ├── AllFromAField.php
+│   │   │   └── One.php
+│   │   ├── Errors/
+│   │   │   └── 404.php
 │   │   ├── Manage/
 │   │   │   ├── EditField.php
-│   │   │   ├── Exercise.php
-│   │   │   └── ExerciseFields.php
+│   │   │   ├── ExerciseFields.php
+│   │   │   └── Exercises.php
 │   │   ├── New/
-│   │   │   ├── Exercise.php
-│   │   │   └── ExerciseFields.php
+│   │   │   └── Exercise.php
 │   │   └── Home.php
 │   │
 │   ├── Dispatcher.php
 │   └── Renderer.php
+│
+├── doc/
+│   └── Documentation_maw1_1.pdf
 │
 ├── vendor/
 │
@@ -123,15 +124,17 @@ MAW11_ABA/
 ├── composer.json
 ├── composer.lock
 ├── database.sql
-└── LICENSE
+├── LICENSE
+└── README.md
 ```
 
 ## Collaborate
 
 - [Our workflow](https://nvie.com/posts/a-successful-git-branching-model/)
- 
+
 ## License
 [MIT License](LICENSE)
+
 ## Contact
 
 bryan.zweiacker@eduvaud.ch / aurelien.robert@eduvaud.ch / amin.deabreu@eduvaud.ch
