@@ -170,7 +170,7 @@ class Dispatcher
                 $exerciseController = new Exercises();
 
                 if ($method === 'POST') {
-                    $exerciseController->delete();
+                    $exerciseController->destroy();
                 }
                 break;
 

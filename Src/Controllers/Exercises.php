@@ -70,12 +70,12 @@ class Exercises
         return ['view' => 'New/Exercise.php', 'data' => $data];
     }
 
-    public function delete()
+    public function destroy()
     {
         $id = $_POST['exercise_id'] ?? null;
 
         if (!empty($id)) {
-            $this->exerciseModel->delete($id);
+            $this->exerciseModel->destroy($id);
         }
 
         header('Location: /exercises');

@@ -44,7 +44,7 @@
                                     </form>
                                 <?php } ?>
                                 <a title="Manage fields" href="/exercises/<?= $exercise["exercise_id"]?>/fields"><i class="fa fa-edit"></i></a>
-                                <a title="delete" href="#" onclick="if(confirm('Are you sure?')){document.getElementById('delete-form-<?= $exercise["exercise_id"] ?>').submit();} return false;"><i class="fa fa-trash"></i></a>
+                                <a title="Destroy" href="#" onclick="if(confirm('Are you sure?')){document.getElementById('delete-form-<?= $exercise["exercise_id"] ?>').submit();} return false;"><i class="fa fa-trash"></i></a>
                                 <form id="delete-form-<?= $exercise["exercise_id"] ?>" method="POST" action="/exercises/delete" style="display:none;">
                                     <input type="hidden" name="exercise_id" value="<?= $exercise["exercise_id"]?>">
                                 </form>
