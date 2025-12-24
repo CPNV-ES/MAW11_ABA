@@ -1,0 +1,37 @@
+/* Home page (dashboard) */
+
+header.dashboard .container {
+  text-align: center;
+  font-size: 3rem;
+  color: white;
+  padding: 2rem;
+}
+
+header.dashboard .container h1 {
+  letter-spacing: 1.1rem;
+}
+
+div.dashboard {
+  margin-top: 2rem;
+}
+
+/* Exercise list */
+.ansering-list {
+  padding-top: 2rem;
+}
+
+/* Exercise cards */
+.card {
+  background-color: #eee;
+  border-radius: .4rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+.card a.button {
+  display: block;
+}
+
+.card .title {
+  margin: 1rem 0;
+}

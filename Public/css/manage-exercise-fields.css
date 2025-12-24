@@ -1,0 +1,33 @@
+/* Exercise fields management page */
+
+/* Table with fixed columns */
+table.records {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+
+table.records td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 0;
+}
+
+table.records td:hover {
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+table.records td:last-child {
+    width: 80px;
+    white-space: nowrap;
+}
+
+table.records td:nth-child(1) {
+    width: auto;
+}
+
+table.records td:nth-child(2) {
+    width: 200px;
+}
