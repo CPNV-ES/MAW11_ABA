@@ -137,4 +137,4 @@ MAW11_ABA/
 
 ## Contact
 
-bryan.zweiacker@eduvaud.ch / aurelien.robert@eduvaud.ch / amin.deabreu@eduvaud.ch
+amin.deabreu@eduvaud.ch / bryan.zweiacker@eduvaud.ch / aurelien.robert@eduvaud.ch
